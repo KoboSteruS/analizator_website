@@ -1,0 +1,291 @@
+{% extends "base.html" %}
+
+{% block title %}О нас - Анализатор кредитных заявок{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero" style="padding: 120px 0 80px;">
+    <div class="container text-center">
+        <h1 class="hero-title animate-fadeInUp">О нас</h1>
+        <p class="hero-subtitle animate-fadeInUp" style="animation-delay: 0.2s; max-width: none;">
+            Ваше цифровое путешествие начинается здесь: окунитесь в экспертизу LendingAnalyzer.
+        </p>
+    </div>
+</section>
+
+<!-- Company Story Section -->
+<section class="section">
+    <div class="container">
+        <div class="grid grid-2" style="align-items: center; gap: 4rem;">
+            <div class="animate-fadeInLeft">
+                <!-- Placeholder для изображения -->
+                <div style="background: var(--gradient-card); border-radius: var(--radius-2xl); 
+                            padding: 3rem; text-align: center; border: 1px solid var(--border-color);
+                            position: relative; overflow: hidden;">
+                    <div style="position: absolute; top: 20px; right: 20px;">
+                        <div style="background: var(--primary-color); color: white; padding: 0.5rem 1rem; 
+                                    border-radius: var(--radius-lg); font-size: 0.75rem; font-weight: 600;">
+                            КТО МЫ
+                        </div>
+                    </div>
+                    <i class="fas fa-users" style="font-size: 4rem; color: var(--primary-color); margin-bottom: 1rem;"></i>
+                    <p style="color: var(--text-secondary);">Наша команда экспертов</p>
+                </div>
+            </div>
+            
+            <div class="animate-fadeInRight">
+                <h2 style="margin-bottom: 2rem;">
+                    Ваше цифровое будущее, наша экспертиза: 
+                    <span class="text-gradient">LendingAnalyzer обеспечивает совершенство</span>
+                </h2>
+                <p style="margin-bottom: 2rem; color: var(--text-secondary);">
+                    Pede molestias quo diam tem vehicula mollit ridiculus tel consectetur
+                    nam ut lorem. Ullam consequuntur qui fuga velit magna amen 
+                    ipsum dolore ut mollit magna stet kiam. Litt vel condimentum ut
+                    ut lacerta at sit ultricorper labore lorem consequat, leo accusantium
+                    qui lorem clita ipsum nulla ut enim erat assumenda ipsum.
+                </p>
+                <a href="{{ url_for('main.contact') }}" class="btn btn-primary">
+                    <i class="fas fa-arrow-right"></i>
+                    Связаться с нами
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Join Companies Section -->
+<section class="section" style="background: var(--dark-bg-secondary);">
+    <div class="container text-center">
+        <h2 style="margin-bottom: 1rem;">Присоединитесь к более чем 300 000+ предприятиям для создания уникальных дизайнов брендов.</h2>
+        
+        <!-- Company Logos -->
+        <div style="margin-top: 3rem; display: flex; justify-content: space-around; align-items: center; 
+                    flex-wrap: wrap; gap: 2rem; opacity: 0.6;">
+            <div style="font-size: 1.5rem; font-weight: 700; color: var(--text-secondary);">
+                <i class="fas fa-building" style="margin-right: 0.5rem;"></i>
+                logoipsum
+            </div>
+            <div style="font-size: 1.5rem; font-weight: 700; color: var(--text-secondary);">
+                <i class="fas fa-chart-bar" style="margin-right: 0.5rem;"></i>
+                logoipsum
+            </div>
+            <div style="font-size: 1.5rem; font-weight: 700; color: var(--text-secondary);">
+                <i class="fas fa-cog" style="margin-right: 0.5rem;"></i>
+                logoipsum
+            </div>
+            <div style="font-size: 1.5rem; font-weight: 700; color: var(--text-secondary);">
+                <i class="fas fa-star" style="margin-right: 0.5rem;"></i>
+                logoipsum
+            </div>
+        </div>
+        
+        <div style="margin-top: 2rem; display: flex; justify-content: space-around; align-items: center; 
+                    flex-wrap: wrap; gap: 2rem; opacity: 0.6;">
+            <div style="font-size: 1.5rem; font-weight: 700; color: var(--text-secondary);">
+                <i class="fas fa-cube" style="margin-right: 0.5rem;"></i>
+                logoipsum
+            </div>
+            <div style="font-size: 1.5rem; font-weight: 700; color: var(--text-secondary);">
+                <i class="fas fa-rocket" style="margin-right: 0.5rem;"></i>
+                logoipsum
+            </div>
+            <div style="font-size: 1.5rem; font-weight: 700; color: var(--text-secondary);">
+                <i class="fas fa-shield-alt" style="margin-right: 0.5rem;"></i>
+                LOGOIPSUM
+            </div>
+            <div style="font-size: 1.5rem; font-weight: 700; color: var(--text-secondary);">
+                <i class="fas fa-lightning-bolt" style="margin-right: 0.5rem;"></i>
+                LOGOIPSUM
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Interactive Section -->
+<section class="section">
+    <div class="container">
+        <div class="grid grid-2" style="align-items: center; gap: 4rem;">
+            <div class="animate-fadeInLeft">
+                <h2 style="margin-bottom: 2rem;">
+                    Умные дизайны, четкие результаты - выберите LendingAnalyzer для цифрового совершенства.
+                </h2>
+                <p style="margin-bottom: 2rem; color: var(--text-secondary);">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, 
+                    luctus nec ullamcorper mattis. Lorem ipsum dolor sit amet, consectetur 
+                    adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis.
+                </p>
+                <a href="{{ url_for('main.services') }}" class="btn btn-primary">
+                    <i class="fas fa-arrow-right"></i>
+                    Наши услуги
+                </a>
+            </div>
+            
+            <div class="animate-fadeInRight">
+                <!-- Interactive Cards -->
+                <div style="position: relative;">
+                    <!-- Card 1 -->
+                    <div style="background: var(--gradient-primary); border-radius: var(--radius-xl); 
+                                padding: 2rem; margin-bottom: 1rem; position: relative; z-index: 3;
+                                transform: rotate(-2deg);">
+                        <div style="display: flex; align-items: center; gap: 1rem; color: white;">
+                            <i class="fas fa-eye" style="font-size: 1.5rem;"></i>
+                            <div>
+                                <h4 style="margin: 0; color: white;">Наше видение</h4>
+                                <p style="margin: 0; opacity: 0.9; font-size: 0.875rem;">
+                                    Осваивайте свой цифровой потенциал с LendingAnalyzer Expertise
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Card 2 -->
+                    <div style="background: var(--dark-bg-card); border: 1px solid var(--border-color); 
+                                border-radius: var(--radius-xl); padding: 2rem; position: relative; z-index: 2;
+                                transform: rotate(2deg); margin-top: -1rem;">
+                        <div style="display: flex; align-items: center; gap: 1rem;">
+                            <i class="fas fa-bullseye" style="font-size: 1.5rem; color: var(--secondary-color);"></i>
+                            <div>
+                                <h4 style="margin: 0; color: var(--text-primary);">Наша миссия</h4>
+                                <p style="margin: 0; color: var(--text-secondary); font-size: 0.875rem;">
+                                    Раскройте свой потенциал в цифровом будущем с экспертными решениями
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Statistics Section -->
+<section class="section" style="background: var(--gradient-primary); color: white;">
+    <div class="container">
+        <div class="grid grid-4 text-center">
+            <div class="animate-fadeInUp" style="animation-delay: 0.1s;">
+                <div style="font-size: var(--font-size-5xl); font-weight: 700; margin-bottom: 0.5rem;">56K+</div>
+                <p style="font-size: var(--font-size-lg); opacity: 0.9; margin: 0;">Проектов</p>
+            </div>
+            <div class="animate-fadeInUp" style="animation-delay: 0.2s;">
+                <div style="font-size: var(--font-size-5xl); font-weight: 700; margin-bottom: 0.5rem;">38K+</div>
+                <p style="font-size: var(--font-size-lg); opacity: 0.9; margin: 0;">Клиентов</p>
+            </div>
+            <div class="animate-fadeInUp" style="animation-delay: 0.3s;">
+                <div style="font-size: var(--font-size-5xl); font-weight: 700; margin-bottom: 0.5rem;">4.7</div>
+                <p style="font-size: var(--font-size-lg); opacity: 0.9; margin: 0;">Рейтинг</p>
+            </div>
+            <div class="animate-fadeInUp" style="animation-delay: 0.4s;">
+                <div style="font-size: var(--font-size-5xl); font-weight: 700; margin-bottom: 0.5rem;">35+</div>
+                <p style="font-size: var(--font-size-lg); opacity: 0.9; margin: 0;">Наград</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Team Section -->
+<section class="section">
+    <div class="container">
+        <div class="text-center" style="margin-bottom: 4rem;">
+            <h2 style="margin-bottom: 1rem;">Знакомьтесь с нашей командой</h2>
+            <p style="color: var(--text-secondary);">
+                Вместе мы представляем отдельных, талантливых инженеров вы до тех пор.
+            </p>
+        </div>
+        
+        <div class="grid grid-4">
+            <!-- Team Member 1 -->
+            <div class="card animate-fadeInUp text-center" style="animation-delay: 0.1s;">
+                <div style="width: 100px; height: 100px; background: var(--gradient-primary); 
+                            border-radius: 50%; display: flex; align-items: center; 
+                            justify-content: center; margin: 0 auto 1.5rem; color: white; 
+                            font-size: 2rem; font-weight: bold;">
+                    А
+                </div>
+                <h4 style="margin-bottom: 0.5rem;">Анна Петрова</h4>
+                <p style="color: var(--text-muted); margin-bottom: 1rem; font-size: var(--font-size-sm);">Основатель</p>
+                <div style="display: flex; justify-content: center; gap: 1rem;">
+                    <a href="#" class="social-link" style="width: 35px; height: 35px;">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="#" class="social-link" style="width: 35px; height: 35px;">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="social-link" style="width: 35px; height: 35px;">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Team Member 2 -->
+            <div class="card animate-fadeInUp text-center" style="animation-delay: 0.2s;">
+                <div style="width: 100px; height: 100px; background: var(--gradient-primary); 
+                            border-radius: 50%; display: flex; align-items: center; 
+                            justify-content: center; margin: 0 auto 1.5rem; color: white; 
+                            font-size: 2rem; font-weight: bold;">
+                    М
+                </div>
+                <h4 style="margin-bottom: 0.5rem;">Михаил Сидоров</h4>
+                <p style="color: var(--text-muted); margin-bottom: 1rem; font-size: var(--font-size-sm);">СТО</p>
+                <div style="display: flex; justify-content: center; gap: 1rem;">
+                    <a href="#" class="social-link" style="width: 35px; height: 35px;">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="#" class="social-link" style="width: 35px; height: 35px;">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="social-link" style="width: 35px; height: 35px;">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Team Member 3 -->
+            <div class="card animate-fadeInUp text-center" style="animation-delay: 0.3s;">
+                <div style="width: 100px; height: 100px; background: var(--gradient-primary); 
+                            border-radius: 50%; display: flex; align-items: center; 
+                            justify-content: center; margin: 0 auto 1.5rem; color: white; 
+                            font-size: 2rem; font-weight: bold;">
+                    Е
+                </div>
+                <h4 style="margin-bottom: 0.5rem;">Елена Волкова</h4>
+                <p style="color: var(--text-muted); margin-bottom: 1rem; font-size: var(--font-size-sm);">Ведущий дизайнер</p>
+                <div style="display: flex; justify-content: center; gap: 1rem;">
+                    <a href="#" class="social-link" style="width: 35px; height: 35px;">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="#" class="social-link" style="width: 35px; height: 35px;">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="social-link" style="width: 35px; height: 35px;">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Team Member 4 -->
+            <div class="card animate-fadeInUp text-center" style="animation-delay: 0.4s;">
+                <div style="width: 100px; height: 100px; background: var(--gradient-primary); 
+                            border-radius: 50%; display: flex; align-items: center; 
+                            justify-content: center; margin: 0 auto 1.5rem; color: white; 
+                            font-size: 2rem; font-weight: bold;">
+                    Д
+                </div>
+                <h4 style="margin-bottom: 0.5rem;">Дмитрий Иванов</h4>
+                <p style="color: var(--text-muted); margin-bottom: 1rem; font-size: var(--font-size-sm);">Менеджер проектов</p>
+                <div style="display: flex; justify-content: center; gap: 1rem;">
+                    <a href="#" class="social-link" style="width: 35px; height: 35px;">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="#" class="social-link" style="width: 35px; height: 35px;">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="social-link" style="width: 35px; height: 35px;">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %} 

@@ -1,0 +1,443 @@
+{% extends "base.html" %}
+
+{% block title %}Анализатор кредитных заявок - Умные решения для кредитования{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero">
+    <div class="container">
+        <div class="grid grid-2" style="align-items: center; gap: 4rem;">
+            <div class="hero-content animate-fadeInLeft">
+                <p class="text-gradient" style="font-weight: 600; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 2px;">
+                    Цифровое развитие
+                </p>
+                <h1 class="hero-title">
+                    Предоставление <span class="text-gradient">ИТ-решений</span>, которые позволяют вам работать умнее.
+                </h1>
+                <p class="hero-subtitle">
+                    В быстро развивающемся цифровом бизнесе сообщества неразрывно связаны. Лучшая работа требует талантливых 
+                    людей, работающих вместе. Больше сотрудничества требует лучших технологий.
+                </p>
+                <div class="hero-buttons">
+                    <a href="{{ url_for('main.contact') }}" class="btn btn-primary btn-lg">
+                        <i class="fas fa-rocket"></i>
+                        Начать проект
+                    </a>
+                </div>
+            </div>
+            <div class="hero-image animate-fadeInRight">
+                <div style="position: relative;">
+                    <div style="background: var(--gradient-card); border-radius: var(--radius-2xl); padding: 2rem; 
+                                box-shadow: var(--shadow-xl); transform: rotate(-5deg);">
+                        <div style="background: var(--dark-bg); border-radius: var(--radius-lg); padding: 1.5rem; 
+                                    border: 1px solid var(--border-color);">
+                            <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem;">
+                                <div style="width: 12px; height: 12px; background: #EF4444; border-radius: 50%;"></div>
+                                <div style="width: 12px; height: 12px; background: #F59E0B; border-radius: 50%;"></div>
+                                <div style="width: 12px; height: 12px; background: #10B981; border-radius: 50%;"></div>
+                            </div>
+                            <div style="color: var(--text-secondary); font-family: monospace; font-size: 0.875rem; line-height: 1.6;">
+                                <div>$ curl -X POST /api/analyze</div>
+                                <div style="color: var(--success-color);">✓ Анализ заявки завершен</div>
+                                <div style="color: var(--primary-color);">Score: 0.85 (Высокий)</div>
+                                <div>Decision: APPROVED</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="section">
+    <div class="container">
+        <div class="grid grid-2" style="align-items: center; gap: 4rem;">
+            <div class="animate-fadeInLeft">
+                <h2>Описания</h2>
+                <p style="margin-bottom: 2rem; color: var(--text-secondary);">
+                    Ut enim lorem quo rerum accusamus minus nostrud temporibus in tincidunt delectus accusamus consequat unde 
+                    maxime laudantium et stet dolores conset takimata est sed dolor.
+                </p>
+                
+                <div style="margin-bottom: 2rem;">
+                    <h4 style="color: var(--text-primary); margin-bottom: 1rem;">
+                        <i class="fas fa-check-circle" style="color: var(--primary-color); margin-right: 0.5rem;"></i>
+                        Экспертиза в цифровых решениях
+                    </h4>
+                    <h4 style="color: var(--text-primary); margin-bottom: 1rem;">
+                        <i class="fas fa-check-circle" style="color: var(--primary-color); margin-right: 0.5rem;"></i>
+                        Инновационный подход к дизайну
+                    </h4>
+                    <h4 style="color: var(--text-primary); margin-bottom: 1rem;">
+                        <i class="fas fa-check-circle" style="color: var(--primary-color); margin-right: 0.5rem;"></i>
+                        Стратегический цифровой маркетинг
+                    </h4>
+                    <h4 style="color: var(--text-primary); margin-bottom: 1rem;">
+                        <i class="fas fa-check-circle" style="color: var(--primary-color); margin-right: 0.5rem;"></i>
+                        Решения, основанные на данных
+                    </h4>
+                </div>
+            </div>
+            
+            <div class="animate-fadeInRight">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="text-gradient">Features</h3>
+                    </div>
+                    <div class="card-body">
+                        <div style="margin-bottom: 1.5rem;">
+                            <div style="display: flex; align-items: center; margin-bottom: 0.5rem;">
+                                <i class="fas fa-user-shield" style="color: var(--primary-color); margin-right: 0.75rem;"></i>
+                                <span style="color: var(--text-primary); font-weight: 500;">UX/UI User Friendly</span>
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 1.5rem;">
+                            <div style="display: flex; align-items: center; margin-bottom: 0.5rem;">
+                                <i class="fas fa-heart" style="color: var(--secondary-color); margin-right: 0.75rem;"></i>
+                                <span style="color: var(--text-primary); font-weight: 500;">Focus on Target</span>
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 1.5rem;">
+                            <div style="display: flex; align-items: center; margin-bottom: 0.5rem;">
+                                <i class="fas fa-clock" style="color: var(--accent-color); margin-right: 0.75rem;"></i>
+                                <span style="color: var(--text-primary); font-weight: 500;">24/7 Support</span>
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 1.5rem;">
+                            <div style="display: flex; align-items: center; margin-bottom: 0.5rem;">
+                                <i class="fas fa-star" style="color: var(--warning-color); margin-right: 0.75rem;"></i>
+                                <span style="color: var(--text-primary); font-weight: 500;">User Experience Free</span>
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 1.5rem;">
+                            <div style="display: flex; align-items: center; margin-bottom: 0.5rem;">
+                                <i class="fas fa-cog" style="color: var(--success-color); margin-right: 0.75rem;"></i>
+                                <span style="color: var(--text-primary); font-weight: 500;">Responsive Graphics Design</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <a href="{{ url_for('main.services') }}" class="btn btn-primary" style="width: 100%;">
+                            Смотреть все функции
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="section" style="background: var(--dark-bg-secondary);">
+    <div class="container text-center">
+        <h2 style="margin-bottom: 1rem;">Открыть поразительные результаты всего за 3 простых шага!</h2>
+        <div class="grid grid-4" style="margin-top: 3rem;">
+            <div class="card animate-fadeInUp" style="animation-delay: 0.1s;">
+                <div style="text-align: center;">
+                    <div style="width: 80px; height: 80px; background: var(--gradient-primary); 
+                                border-radius: 50%; display: flex; align-items: center; 
+                                justify-content: center; margin: 0 auto 1.5rem; color: white; font-size: 2rem;">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h4 style="margin-bottom: 1rem;">Бесплатные консультации</h4>
+                    <p style="margin-bottom: 1.5rem; color: var(--text-secondary);">
+                        Ut duis lorem rerum dolorem distinctio qui minus aliquip et consectetur accusantium
+                    </p>
+                    <a href="{{ url_for('main.contact') }}" class="btn btn-outline btn-sm">Связаться</a>
+                </div>
+            </div>
+            
+            <div class="card animate-fadeInUp" style="animation-delay: 0.2s;">
+                <div style="text-align: center;">
+                    <div style="width: 80px; height: 80px; background: var(--gradient-primary); 
+                                border-radius: 50%; display: flex; align-items: center; 
+                                justify-content: center; margin: 0 auto 1.5rem; color: white; font-size: 2rem;">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h4 style="margin-bottom: 1rem;">Изучить продукт</h4>
+                    <p style="margin-bottom: 1.5rem; color: var(--text-secondary);">
+                        Ut duis lorem rerum dolorem distinctio qui minus aliquip et consectetur accusantium
+                    </p>
+                    <a href="{{ url_for('main.services') }}" class="btn btn-outline btn-sm">Узнать больше</a>
+                </div>
+            </div>
+            
+            <div class="card animate-fadeInUp" style="animation-delay: 0.3s;">
+                <div style="text-align: center;">
+                    <div style="width: 80px; height: 80px; background: var(--gradient-primary); 
+                                border-radius: 50%; display: flex; align-items: center; 
+                                justify-content: center; margin: 0 auto 1.5rem; color: white; font-size: 2rem;">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h4 style="margin-bottom: 1rem;">Каркас и продукция</h4>
+                    <p style="margin-bottom: 1.5rem; color: var(--text-secondary);">
+                        Ut duis lorem rerum dolorem distinctio qui minus aliquip et consectetur accusantium
+                    </p>
+                    <a href="{{ url_for('main.portfolio') }}" class="btn btn-outline btn-sm">Портфолио</a>
+                </div>
+            </div>
+            
+            <div class="card animate-fadeInUp" style="animation-delay: 0.4s;">
+                <div style="text-align: center;">
+                    <div style="width: 80px; height: 80px; background: var(--gradient-primary); 
+                                border-radius: 50%; display: flex; align-items: center; 
+                                justify-content: center; margin: 0 auto 1.5rem; color: white; font-size: 2rem;">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h4 style="margin-bottom: 1rem;">Прототип приложения</h4>
+                    <p style="margin-bottom: 1.5rem; color: var(--text-secondary);">
+                        Ut duis lorem rerum dolorem distinctio qui minus aliquip et consectetur accusantium
+                    </p>
+                    <a href="#" class="btn btn-outline btn-sm">Попробовать</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Excellence Section -->
+<section class="section">
+    <div class="container">
+        <div class="grid grid-2" style="align-items: center; gap: 4rem;">
+            <div class="animate-fadeInLeft">
+                <h2 style="margin-bottom: 2rem;">
+                    Первопроходцы цифрового совершенства: 
+                    <span class="text-gradient">Откройте для себя преимущества LendingAnalyzer</span>
+                </h2>
+                <p style="margin-bottom: 2rem; color: var(--text-secondary);">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, 
+                    luctus nec ullamcorper mattis, pulvinar dapibus leo.
+                </p>
+                <a href="{{ url_for('main.about') }}" class="btn btn-primary">
+                    <i class="fas fa-arrow-right"></i>
+                    Узнать больше
+                </a>
+            </div>
+            <div class="animate-fadeInRight">
+                <!-- Placeholder для изображения -->
+                <div style="background: var(--gradient-card); border-radius: var(--radius-2xl); 
+                            padding: 3rem; text-align: center; border: 1px solid var(--border-color);">
+                    <i class="fas fa-chart-bar" style="font-size: 4rem; color: var(--primary-color); margin-bottom: 1rem;"></i>
+                    <p style="color: var(--text-secondary);">Место для изображения</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Projects Section -->
+{% if featured_projects %}
+<section class="section" style="background: var(--dark-bg-secondary);">
+    <div class="container">
+        <div class="text-center" style="margin-bottom: 3rem;">
+            <p class="text-gradient" style="font-weight: 600; text-transform: uppercase; letter-spacing: 2px;">
+                Наши работы
+            </p>
+            <h2>Рекомендуемые проекты</h2>
+        </div>
+        
+        <div class="grid grid-3">
+            {% for project in featured_projects %}
+            <div class="card animate-fadeInUp" style="animation-delay: {{ loop.index * 0.1 }}s;">
+                <div style="position: relative; margin-bottom: 1.5rem;">
+                    {% if project.image_url %}
+                    <div style="background: url('{{ project.image_url }}') center/cover; height: 200px; border-radius: var(--radius-lg); border: 1px solid var(--border-color);">
+                    </div>
+                    {% else %}
+                    <div style="background: var(--gradient-card); height: 200px; border-radius: var(--radius-lg); 
+                                display: flex; align-items: center; justify-content: center; border: 1px solid var(--border-color);">
+                        {% if project.category == "Веб-разработка" %}
+                            <i class="fas fa-code" style="font-size: 3rem; color: var(--primary-color);"></i>
+                        {% elif project.category == "Цифровой маркетинг" %}
+                            <i class="fas fa-chart-line" style="font-size: 3rem; color: var(--secondary-color);"></i>
+                        {% elif project.category == "Брендинг" %}
+                            <i class="fas fa-paint-brush" style="font-size: 3rem; color: var(--warning-color);"></i>
+                        {% elif project.category == "E-commerce" %}
+                            <i class="fas fa-shopping-cart" style="font-size: 3rem; color: var(--primary-color);"></i>
+                        {% elif project.category == "Дизайн" %}
+                            <i class="fas fa-palette" style="font-size: 3rem; color: var(--success-color);"></i>
+                        {% elif project.category == "Мобильное приложение" %}
+                            <i class="fas fa-mobile-alt" style="font-size: 3rem; color: var(--accent-color);"></i>
+                        {% else %}
+                            <i class="fas fa-laptop-code" style="font-size: 3rem; color: var(--primary-color);"></i>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                    
+                    <div style="position: absolute; top: 1rem; left: 1rem; background: {{ project.get_category_color() }}; 
+                                color: white; padding: 0.25rem 0.75rem; border-radius: var(--radius-md); font-size: 0.75rem;">
+                        {{ project.category }}
+                    </div>
+                    
+                    {% if project.completion_date %}
+                    <div style="position: absolute; bottom: 1rem; right: 1rem; color: var(--text-muted); font-size: 0.875rem;">
+                        {{ project.completion_date.strftime('%b %Y') }}
+                    </div>
+                    {% endif %}
+                </div>
+                
+                <div style="text-align: left;">
+                    <h4 style="margin-bottom: 0.5rem;">{{ project.title }}</h4>
+                    <p style="color: var(--text-muted); font-size: 0.875rem; margin-bottom: 0.5rem;">{{ project.client }}</p>
+                    {% if project.location %}
+                    <p style="color: var(--text-muted); font-size: 0.75rem; margin-bottom: 1rem;">{{ project.location }}</p>
+                    {% endif %}
+                    
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        {% if project.price %}
+                        <span style="color: var(--primary-color); font-weight: 600; font-size: 1.25rem;">{{ project.price_formatted }}</span>
+                        {% else %}
+                        <span style="color: var(--text-muted); font-size: 1rem;">Цена не указана</span>
+                        {% endif %}
+                        
+                        {% if project.project_url %}
+                        <a href="{{ project.project_url }}" target="_blank" class="btn btn-outline btn-sm">Просмотр</a>
+                        {% else %}
+                        <a href="#" class="btn btn-outline btn-sm">Просмотр</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div class="text-center" style="margin-top: 3rem;">
+            <a href="{{ url_for('main.portfolio') }}" class="btn btn-primary">
+                <i class="fas fa-arrow-right"></i>
+                Все проекты
+            </a>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Testimonials Section
+<section class="section" style="background: var(--dark-bg-secondary);">
+    <div class="container">
+        <div class="text-center" style="margin-bottom: 3rem;">
+            <p class="text-gradient" style="font-weight: 600; text-transform: uppercase; letter-spacing: 2px;">
+                Отзывы
+            </p>
+            <h2>Отзывы клиентов и отзывы</h2>
+        </div>
+        
+        <div class="grid grid-3">
+            <div class="card animate-fadeInUp" style="animation-delay: 0.1s;">
+                <div style="margin-bottom: 1.5rem;">
+                    <div style="display: flex; margin-bottom: 1rem;">
+                        <i class="fas fa-star" style="color: var(--warning-color);"></i>
+                        <i class="fas fa-star" style="color: var(--warning-color);"></i>
+                        <i class="fas fa-star" style="color: var(--warning-color);"></i>
+                        <i class="fas fa-star" style="color: var(--warning-color);"></i>
+                        <i class="fas fa-star" style="color: var(--warning-color);"></i>
+                    </div>
+                    <p style="color: var(--text-secondary); font-style: italic;">
+                        "LendingAnalyzer произвел революцию в наших процессах кредитования. 
+                        Система анализа заявок невероятно точна и экономит нам часы работы."
+                    </p>
+                </div>
+                <div style="display: flex; align-items: center; gap: 1rem;">
+                    <div style="width: 50px; height: 50px; background: var(--gradient-primary); 
+                                border-radius: 50%; display: flex; align-items: center; 
+                                justify-content: center; color: white; font-weight: bold;">
+                        А
+                    </div>
+                    <div>
+                        <h5 style="margin: 0; color: var(--text-primary);">Анна Иванова</h5>
+                        <p style="margin: 0; color: var(--text-muted); font-size: var(--font-size-sm);">
+                            Руководитель отдела кредитования
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card animate-fadeInUp" style="animation-delay: 0.2s;">
+                <div style="margin-bottom: 1.5rem;">
+                    <div style="display: flex; margin-bottom: 1rem;">
+                        <i class="fas fa-star" style="color: var(--warning-color);"></i>
+                        <i class="fas fa-star" style="color: var(--warning-color);"></i>
+                        <i class="fas fa-star" style="color: var(--warning-color);"></i>
+                        <i class="fas fa-star" style="color: var(--warning-color);"></i>
+                        <i class="fas fa-star" style="color: var(--warning-color);"></i>
+                    </div>
+                    <p style="color: var(--text-secondary); font-style: italic;">
+                        "Цифровые решения для маркетинга превзошли наши ожидания. 
+                        Качество и скорость доставки впечатляют."
+                    </p>
+                </div>
+                <div style="display: flex; align-items: center; gap: 1rem;">
+                    <div style="width: 50px; height: 50px; background: var(--gradient-primary); 
+                                border-radius: 50%; display: flex; align-items: center; 
+                                justify-content: center; color: white; font-weight: bold;">
+                        М
+                    </div>
+                    <div>
+                        <h5 style="margin: 0; color: var(--text-primary);">Михаил Петров</h5>
+                        <p style="margin: 0; color: var(--text-muted); font-size: var(--font-size-sm);">
+                            Директор по маркетингу
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card animate-fadeInUp" style="animation-delay: 0.3s;">
+                <div style="margin-bottom: 1.5rem;">
+                    <div style="display: flex; margin-bottom: 1rem;">
+                        <i class="fas fa-star" style="color: var(--warning-color);"></i>
+                        <i class="fas fa-star" style="color: var(--warning-color);"></i>
+                        <i class="fas fa-star" style="color: var(--warning-color);"></i>
+                        <i class="fas fa-star" style="color: var(--warning-color);"></i>
+                        <i class="fas fa-star" style="color: var(--warning-color);"></i>
+                    </div>
+                    <p style="color: var(--text-secondary); font-style: italic;">
+                        "Отличный сервис! LendingAnalyzer помог нашему банку значительно 
+                        снизить риски и повысить качество принятия решений."
+                    </p>
+                </div>
+                <div style="display: flex; align-items: center; gap: 1rem;">
+                    <div style="width: 50px; height: 50px; background: var(--gradient-primary); 
+                                border-radius: 50%; display: flex; align-items: center; 
+                                justify-content: center; color: white; font-weight: bold;">
+                        Е
+                    </div>
+                    <div>
+                        <h5 style="margin: 0; color: var(--text-primary);">Елена Смирнова</h5>
+                        <p style="margin: 0; color: var(--text-muted); font-size: var(--font-size-sm);">
+                            Управляющий банком
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section> -->
+{% endblock %}
+
+{% block scripts %}
+<script>
+// Простая анимация при скролле
+const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+};
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+        }
+    });
+}, observerOptions);
+
+// Наблюдаем за элементами с анимацией
+document.querySelectorAll('.animate-fadeInUp, .animate-fadeInLeft, .animate-fadeInRight').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(30px)';
+    el.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+    observer.observe(el);
+});
+</script>
+{% endblock %} 

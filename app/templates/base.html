@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Анализатор кредитных заявок{% endblock %}</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+    
+    <!-- CSS -->
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    {% block head %}{% endblock %}
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <!-- Logo -->
+            <div class="nav-logo">
+                <a href="{{ url_for('main.homepage') }}">
+                    <div class="logo">
+                        <div class="logo-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <span class="logo-text">LendingAnalyzer</span>
+                    </div>
+                </a>
+            </div>
+            
+            <!-- Navigation Menu -->
+            <div class="nav-menu" id="nav-menu">
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="{{ url_for('main.homepage') }}" class="nav-link">Главная</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ url_for('main.about') }}" class="nav-link">О нас</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a href="{{ url_for('main.services') }}" class="nav-link">
+                            Услуги
+                            <i class="fas fa-chevron-down dropdown-icon"></i>
+                        </a>
+                        <div class="dropdown-menu">
+                            <a href="{{ url_for('main.services') }}#analysis" class="dropdown-link">Анализ заявок</a>
+                            <a href="{{ url_for('main.services') }}#scoring" class="dropdown-link">Скоринг</a>
+                            <a href="{{ url_for('main.services') }}#reports" class="dropdown-link">Отчеты</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ url_for('main.portfolio') }}" class="nav-link">Портфолио</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ url_for('main.contact') }}" class="nav-link">Контакты</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link">
+                            Тарифы
+                            <i class="fas fa-chevron-down dropdown-icon"></i>
+                        </a>
+                        <div class="dropdown-menu">
+                            <a href="{{ url_for('main.pricing') }}" class="dropdown-link">Тарифные планы</a>
+                            <a href="{{ url_for('main.pricing') }}#enterprise" class="dropdown-link">Корпоративный</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- CTA Button -->
+            <div class="nav-cta">
+                <a href="{{ url_for('main.contact') }}" class="btn btn-primary">Начать работу</a>
+            </div>
+            
+            <!-- Mobile Menu Toggle -->
+            <div class="nav-toggle" id="nav-toggle">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <!-- Footer Top -->
+            <div class="footer-top">
+                <div class="footer-grid">
+                    <!-- Company Info -->
+                    <div class="footer-section">
+                        <div class="footer-logo">
+                            <div class="logo">
+                                <div class="logo-icon">
+                                    <i class="fas fa-chart-line"></i>
+                                </div>
+                                <span class="logo-text">LendingAnalyzer</span>
+                            </div>
+                        </div>
+                        <p class="footer-description">
+                            Расширяющая ваше присутствие в области цифрового совершенства. Повышайте 
+                            свою онлайн-позицию с помощью наших инновационных решений 
+                            и стратегических цифровых услуг.
+                        </p>
+                        <div class="social-links">
+                            <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                        </div>
+                    </div>
+                    
+                    <!-- Services -->
+                    <div class="footer-section">
+                        <h3 class="footer-title">Услуги</h3>
+                        <ul class="footer-links">
+                            <li><a href="{{ url_for('main.services') }}">Анализ заявок</a></li>
+                            <li><a href="{{ url_for('main.services') }}">Скоринг клиентов</a></li>
+                            <li><a href="{{ url_for('main.services') }}">Цифровой маркетинг</a></li>
+                            <li><a href="{{ url_for('main.services') }}">Графический дизайн</a></li>
+                            <li><a href="{{ url_for('main.services') }}">Брендинг</a></li>
+                            <li><a href="{{ url_for('main.services') }}">SEO оптимизация</a></li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Support -->
+                    <div class="footer-section">
+                        <h3 class="footer-title">Поддержка</h3>
+                        <ul class="footer-links">
+                            <li><a href="#">Центр помощи</a></li>
+                            <li><a href="#">FAQ</a></li>
+                            <li><a href="#">Поддержка билетов</a></li>
+                            <li><a href="#">Поддержка продаж</a></li>
+                            <li><a href="{{ url_for('main.contact') }}">Связаться с нами</a></li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Company -->
+                    <div class="footer-section">
+                        <h3 class="footer-title">Компания</h3>
+                        <ul class="footer-links">
+                            <li><a href="{{ url_for('main.about') }}">О нас</a></li>
+                            <li><a href="#">Наша команда</a></li>
+                            <li><a href="#">Карьера</a></li>
+                            <li><a href="#">Статьи и новости</a></li>
+                            <li><a href="#">Юридические уведомления</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Footer Bottom -->
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <p class="copyright">
+                        &copy; 2024 LendingAnalyzer. Все права защищены. Powered by Flask.
+                    </p>
+                    <div class="footer-bottom-links">
+                        <a href="#">Условия использования</a>
+                        <a href="#">Политика конфиденциальности</a>
+                        <a href="#">Политика cookies</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    {% block scripts %}{% endblock %}
+</body>
+</html> 

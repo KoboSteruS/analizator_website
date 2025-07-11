@@ -1,0 +1,285 @@
+{% extends "admin/base.html" %}
+
+{% block title %}Панель управления - Админка{% endblock %}
+{% block page_title %}Панель управления{% endblock %}
+
+{% block content %}
+<!-- Welcome Section -->
+<div class="admin-card">
+    <h2 style="margin-bottom: 1rem; color: var(--text-primary);">
+        Добро пожаловать, {{ user.full_name }}! 👋
+    </h2>
+    <p style="color: var(--text-secondary); margin-bottom: 1rem;">
+        Последний вход: 
+        {% if user.last_login %}
+            {{ user.last_login.strftime('%d.%m.%Y в %H:%M') }}
+        {% else %}
+            Первый вход
+        {% endif %}
+    </p>
+    <p style="color: var(--text-secondary);">
+        Ваш JWT ключ для доступа: <code style="background: var(--dark-bg-tertiary); 
+        padding: 0.25rem 0.5rem; border-radius: 4px; font-family: monospace;">{{ jwt_secret }}</code>
+    </p>
+</div>
+
+<!-- Statistics -->
+<div class="stats-grid">
+    <div class="stat-card">
+        <div class="stat-icon">
+            <i class="fas fa-cogs"></i>
+        </div>
+        <div class="stat-value">{{ stats.services_count }}</div>
+        <div class="stat-label">Активных услуг</div>
+    </div>
+    
+    <div class="stat-card">
+        <div class="stat-icon">
+            <i class="fas fa-briefcase"></i>
+        </div>
+        <div class="stat-value">{{ stats.portfolio_count }}</div>
+        <div class="stat-label">Проектов в портфолио</div>
+    </div>
+    
+    <div class="stat-card">
+        <div class="stat-icon">
+            <i class="fas fa-star"></i>
+        </div>
+        <div class="stat-value">{{ stats.featured_projects }}</div>
+        <div class="stat-label">Избранных проектов</div>
+    </div>
+    
+    <div class="stat-card">
+        <div class="stat-icon">
+            <i class="fas fa-ruble-sign"></i>
+        </div>
+        <div class="stat-value">{{ "₽{:,.0f}".format(stats.total_projects_value).replace(',', ' ') }}</div>
+        <div class="stat-label">Общая стоимость проектов</div>
+    </div>
+</div>
+
+<!-- Quick Actions -->
+<div class="admin-card">
+    <h3 style="margin-bottom: 1.5rem; color: var(--text-primary);">
+        <i class="fas fa-bolt" style="color: var(--primary-color); margin-right: 0.5rem;"></i>
+        Быстрые действия
+    </h3>
+    
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+        <a href="{{ url_for('admin_' + jwt_secret + '.service_new') }}" 
+           class="btn btn-primary" style="text-align: center; padding: 1rem;">
+            <i class="fas fa-plus"></i>
+            Добавить услугу
+        </a>
+        
+        <a href="{{ url_for('admin_' + jwt_secret + '.portfolio_new') }}" 
+           class="btn btn-primary" style="text-align: center; padding: 1rem;">
+            <i class="fas fa-plus"></i>
+            Добавить проект
+        </a>
+        
+        <a href="{{ url_for('main.homepage') }}" target="_blank" 
+           class="btn btn-secondary" style="text-align: center; padding: 1rem;">
+            <i class="fas fa-external-link-alt"></i>
+            Посмотреть сайт
+        </a>
+        
+        <a href="{{ url_for('admin_' + jwt_secret + '.api_services') }}" target="_blank" 
+           class="btn btn-secondary" style="text-align: center; padding: 1rem;">
+            <i class="fas fa-code"></i>
+            API услуг
+        </a>
+    </div>
+</div>
+
+<!-- Recent Activity -->
+<div class="grid grid-2" style="gap: 2rem;">
+    <!-- Services Preview -->
+    <div class="admin-card">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+            <h3 style="margin: 0; color: var(--text-primary);">
+                <i class="fas fa-cogs" style="color: var(--primary-color); margin-right: 0.5rem;"></i>
+                Последние услуги
+            </h3>
+            <a href="{{ url_for('admin_' + jwt_secret + '.services') }}" class="btn btn-outline btn-sm">
+                Все услуги
+            </a>
+        </div>
+        
+        <div id="recent-services">
+            <div style="text-align: center; color: var(--text-muted); padding: 2rem;">
+                <i class="fas fa-spinner fa-spin"></i>
+                Загрузка...
+            </div>
+        </div>
+    </div>
+    
+    <!-- Portfolio Preview -->
+    <div class="admin-card">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+            <h3 style="margin: 0; color: var(--text-primary);">
+                <i class="fas fa-briefcase" style="color: var(--primary-color); margin-right: 0.5rem;"></i>
+                Последние проекты
+            </h3>
+            <a href="{{ url_for('admin_' + jwt_secret + '.portfolio') }}" class="btn btn-outline btn-sm">
+                Все проекты
+            </a>
+        </div>
+        
+        <div id="recent-portfolio">
+            <div style="text-align: center; color: var(--text-muted); padding: 2rem;">
+                <i class="fas fa-spinner fa-spin"></i>
+                Загрузка...
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- System Info -->
+<div class="admin-card">
+    <h3 style="margin-bottom: 1.5rem; color: var(--text-primary);">
+        <i class="fas fa-info-circle" style="color: var(--primary-color); margin-right: 0.5rem;"></i>
+        Системная информация
+    </h3>
+    
+    <div class="grid grid-3" style="gap: 1.5rem;">
+        <div style="text-align: center;">
+            <div style="font-size: 1.5rem; color: var(--success-color); margin-bottom: 0.5rem;">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <div style="font-weight: 600; color: var(--text-primary);">Система</div>
+            <div style="color: var(--text-secondary); font-size: 0.875rem;">Работает нормально</div>
+        </div>
+        
+        <div style="text-align: center;">
+            <div style="font-size: 1.5rem; color: var(--success-color); margin-bottom: 0.5rem;">
+                <i class="fas fa-database"></i>
+            </div>
+            <div style="font-weight: 600; color: var(--text-primary);">База данных</div>
+            <div style="color: var(--text-secondary); font-size: 0.875rem;">Подключена</div>
+        </div>
+        
+        <div style="text-align: center;">
+            <div style="font-size: 1.5rem; color: var(--primary-color); margin-bottom: 0.5rem;">
+                <i class="fas fa-shield-alt"></i>
+            </div>
+            <div style="font-weight: 600; color: var(--text-primary);">Безопасность</div>
+            <div style="color: var(--text-secondary); font-size: 0.875rem;">JWT активен</div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Load recent services
+    loadRecentServices();
+    
+    // Load recent portfolio
+    loadRecentPortfolio();
+});
+
+function loadRecentServices() {
+    fetch('{{ url_for("admin_" + jwt_secret + ".api_services") }}')
+        .then(response => response.json())
+        .then(services => {
+            const container = document.getElementById('recent-services');
+            
+            if (services.length === 0) {
+                container.innerHTML = `
+                    <div style="text-align: center; color: var(--text-muted); padding: 2rem;">
+                        <i class="fas fa-plus-circle" style="font-size: 2rem; margin-bottom: 1rem;"></i><br>
+                        Нет услуг<br>
+                        <a href="{{ url_for('admin_' + jwt_secret + '.service_new') }}" class="btn btn-primary btn-sm" style="margin-top: 1rem;">
+                            Добавить первую
+                        </a>
+                    </div>
+                `;
+                return;
+            }
+            
+            const recentServices = services.slice(0, 3);
+            container.innerHTML = recentServices.map(service => `
+                <div style="display: flex; align-items: center; padding: 0.75rem; 
+                            border: 1px solid var(--border-color); border-radius: var(--radius-lg); 
+                            margin-bottom: 0.5rem; background: var(--dark-bg-tertiary);">
+                    <div style="width: 40px; height: 40px; background: ${service.color}; 
+                                border-radius: 50%; display: flex; align-items: center; 
+                                justify-content: center; margin-right: 1rem; color: white;">
+                        <i class="${service.icon}"></i>
+                    </div>
+                    <div style="flex: 1;">
+                        <div style="font-weight: 600; color: var(--text-primary);">${service.title}</div>
+                        <div style="font-size: 0.875rem; color: var(--text-secondary);">
+                            ${service.is_active ? '🟢 Активна' : '🔴 Неактивна'}
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        })
+        .catch(error => {
+            console.error('Error loading services:', error);
+            document.getElementById('recent-services').innerHTML = `
+                <div style="text-align: center; color: var(--error-color); padding: 2rem;">
+                    <i class="fas fa-exclamation-triangle"></i><br>
+                    Ошибка загрузки
+                </div>
+            `;
+        });
+}
+
+function loadRecentPortfolio() {
+    fetch('{{ url_for("admin_" + jwt_secret + ".api_portfolio") }}')
+        .then(response => response.json())
+        .then(projects => {
+            const container = document.getElementById('recent-portfolio');
+            
+            if (projects.length === 0) {
+                container.innerHTML = `
+                    <div style="text-align: center; color: var(--text-muted); padding: 2rem;">
+                        <i class="fas fa-plus-circle" style="font-size: 2rem; margin-bottom: 1rem;"></i><br>
+                        Нет проектов<br>
+                        <a href="{{ url_for('admin_' + jwt_secret + '.portfolio_new') }}" class="btn btn-primary btn-sm" style="margin-top: 1rem;">
+                            Добавить первый
+                        </a>
+                    </div>
+                `;
+                return;
+            }
+            
+            const recentProjects = projects.slice(0, 3);
+            container.innerHTML = recentProjects.map(project => `
+                <div style="display: flex; align-items: center; padding: 0.75rem; 
+                            border: 1px solid var(--border-color); border-radius: var(--radius-lg); 
+                            margin-bottom: 0.5rem; background: var(--dark-bg-tertiary);">
+                    <div style="width: 40px; height: 40px; background: var(--gradient-primary); 
+                                border-radius: var(--radius-lg); display: flex; align-items: center; 
+                                justify-content: center; margin-right: 1rem; color: white; font-weight: bold;">
+                        ${project.title.charAt(0)}
+                    </div>
+                    <div style="flex: 1;">
+                        <div style="font-weight: 600; color: var(--text-primary);">${project.title}</div>
+                        <div style="font-size: 0.875rem; color: var(--text-secondary);">
+                            ${project.client} • ${project.category}
+                            ${project.is_featured ? ' ⭐' : ''}
+                        </div>
+                    </div>
+                    <div style="text-align: right; color: var(--primary-color); font-weight: 600;">
+                        ${project.price_formatted || '—'}
+                    </div>
+                </div>
+            `).join('');
+        })
+        .catch(error => {
+            console.error('Error loading portfolio:', error);
+            document.getElementById('recent-portfolio').innerHTML = `
+                <div style="text-align: center; color: var(--error-color); padding: 2rem;">
+                    <i class="fas fa-exclamation-triangle"></i><br>
+                    Ошибка загрузки
+                </div>
+            `;
+        });
+}
+</script>
+{% endblock %} 

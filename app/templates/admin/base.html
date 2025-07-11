@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Админка - LendingAnalyzer{% endblock %}</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+    
+    <!-- CSS -->
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Admin specific styles -->
+    <style>
+        /* Admin Layout */
+        .admin-container {
+            display: flex;
+            min-height: 100vh;
+            background: var(--dark-bg);
+        }
+        
+        .admin-sidebar {
+            width: 280px;
+            background: var(--dark-bg-secondary);
+            border-right: 1px solid var(--border-color);
+            flex-shrink: 0;
+        }
+        
+        .admin-main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* Sidebar */
+        .sidebar-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .sidebar-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.125rem;
+        }
+        
+        .sidebar-brand i {
+            width: 32px;
+            height: 32px;
+            background: var(--gradient-primary);
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+        
+        .sidebar-nav {
+            padding: 1rem 0;
+        }
+        
+        .nav-section {
+            margin-bottom: 2rem;
+        }
+        
+        .nav-section-title {
+            padding: 0 1.5rem 0.5rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .nav-item {
+            margin: 0.25rem 1rem;
+        }
+        
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            border-radius: var(--radius-lg);
+            transition: var(--transition-fast);
+            font-weight: 500;
+        }
+        
+        .nav-link:hover,
+        .nav-link.active {
+            background: var(--dark-bg-tertiary);
+            color: var(--text-primary);
+        }
+        
+        .nav-link i {
+            width: 20px;
+            text-align: center;
+        }
+        
+        /* Top Bar */
+        .admin-header {
+            background: var(--dark-bg);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .admin-title {
+            margin: 0;
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        
+        .admin-user {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .user-info {
+            text-align: right;
+        }
+        
+        .user-name {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin: 0;
+        }
+        
+        .user-email {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            margin: 0;
+        }
+        
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+        }
+        
+        /* Content */
+        .admin-content {
+            flex: 1;
+            padding: 2rem;
+            overflow-y: auto;
+        }
+        
+        /* Admin specific components */
+        .admin-card {
+            background: var(--dark-bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-xl);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .stat-card {
+            background: var(--gradient-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-xl);
+            padding: 1.5rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gradient-primary);
+        }
+        
+        .stat-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            color: white;
+            font-size: 1.5rem;
+        }
+        
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+        
+        /* Tables */
+        .admin-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--dark-bg-card);
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+        
+        .admin-table th,
+        .admin-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .admin-table th {
+            background: var(--dark-bg-secondary);
+            color: var(--text-primary);
+            font-weight: 600;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .admin-table td {
+            color: var(--text-secondary);
+        }
+        
+        .admin-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .admin-table tr:hover {
+            background: var(--dark-bg-tertiary);
+        }
+        
+        /* Forms */
+        .admin-form {
+            background: var(--dark-bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-xl);
+            padding: 2rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-label {
+            display: block;
+            color: var(--text-primary);
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+        
+        .form-input,
+        .form-textarea,
+        .form-select {
+            width: 100%;
+            padding: 0.75rem;
+            background: var(--dark-bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            color: var(--text-primary);
+            font-size: 1rem;
+            transition: var(--transition-fast);
+        }
+        
+        .form-input:focus,
+        .form-textarea:focus,
+        .form-select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+        }
+        
+        .form-textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        
+        .form-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .form-checkbox input {
+            accent-color: var(--primary-color);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .admin-sidebar {
+                position: fixed;
+                left: -280px;
+                z-index: 1000;
+                transition: left 0.3s ease;
+            }
+            
+            .admin-sidebar.open {
+                left: 0;
+            }
+            
+            .admin-content {
+                padding: 1rem;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    
+    {% block head %}{% endblock %}
+</head>
+<body>
+    <div class="admin-container">
+        <!-- Sidebar -->
+        <aside class="admin-sidebar" id="admin-sidebar">
+            <div class="sidebar-header">
+                <a href="{{ url_for('admin_' + jwt_secret + '.dashboard') }}" class="sidebar-brand">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Админка</span>
+                </a>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <div class="nav-section">
+                    <div class="nav-section-title">Главное</div>
+                    <div class="nav-item">
+                        <a href="{{ url_for('admin_' + jwt_secret + '.dashboard') }}" 
+                           class="nav-link {% if request.endpoint.endswith('.dashboard') %}active{% endif %}">
+                            <i class="fas fa-tachometer-alt"></i>
+                            <span>Панель управления</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="nav-section">
+                    <div class="nav-section-title">Контент</div>
+                    <div class="nav-item">
+                        <a href="{{ url_for('admin_' + jwt_secret + '.services') }}" 
+                           class="nav-link {% if 'service' in request.endpoint %}active{% endif %}">
+                            <i class="fas fa-cogs"></i>
+                            <span>Услуги</span>
+                        </a>
+                    </div>
+                    <div class="nav-item">
+                        <a href="{{ url_for('admin_' + jwt_secret + '.portfolio') }}" 
+                           class="nav-link {% if 'portfolio' in request.endpoint %}active{% endif %}">
+                            <i class="fas fa-briefcase"></i>
+                            <span>Портфолио</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="nav-section">
+                    <div class="nav-section-title">Система</div>
+                    <div class="nav-item">
+                        <a href="{{ url_for('main.homepage') }}" class="nav-link" target="_blank">
+                            <i class="fas fa-external-link-alt"></i>
+                            <span>Посмотреть сайт</span>
+                        </a>
+                    </div>
+                    <div class="nav-item">
+                        <a href="{{ url_for('admin_' + jwt_secret + '.logout') }}" class="nav-link">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span>Выход</span>
+                        </a>
+                    </div>
+                </div>
+            </nav>
+        </aside>
+        
+        <!-- Main Content -->
+        <main class="admin-main">
+            <!-- Header -->
+            <header class="admin-header">
+                <h1 class="admin-title">{% block page_title %}Админка{% endblock %}</h1>
+                
+                <div class="admin-user">
+                    <div class="user-info">
+                        <p class="user-name">{{ user.full_name }}</p>
+                        <p class="user-email">{{ user.email }}</p>
+                    </div>
+                    <div class="user-avatar">
+                        {{ user.full_name[0].upper() if user.full_name else 'A' }}
+                    </div>
+                </div>
+            </header>
+            
+            <!-- Content -->
+            <div class="admin-content">
+                {% if error %}
+                    <div class="alert alert-error" style="background: var(--error-color); color: white; 
+                                padding: 1rem; border-radius: var(--radius-lg); margin-bottom: 1rem;">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        {{ error }}
+                    </div>
+                {% endif %}
+                
+                {% if success %}
+                    <div class="alert alert-success" style="background: var(--success-color); color: white; 
+                                padding: 1rem; border-radius: var(--radius-lg); margin-bottom: 1rem;">
+                        <i class="fas fa-check-circle"></i>
+                        {{ success }}
+                    </div>
+                {% endif %}
+                
+                {% block content %}{% endblock %}
+            </div>
+        </main>
+    </div>
+    
+    <!-- JavaScript -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script>
+        // Admin specific JavaScript
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile sidebar toggle
+            const sidebar = document.getElementById('admin-sidebar');
+            const toggleBtn = document.createElement('button');
+            toggleBtn.innerHTML = '<i class="fas fa-bars"></i>';
+            toggleBtn.className = 'btn btn-secondary';
+            toggleBtn.style.display = 'none';
+            
+            if (window.innerWidth <= 768) {
+                toggleBtn.style.display = 'block';
+                document.querySelector('.admin-header').appendChild(toggleBtn);
+                
+                toggleBtn.addEventListener('click', function() {
+                    sidebar.classList.toggle('open');
+                });
+            }
+            
+            // Auto-hide alerts
+            setTimeout(function() {
+                const alerts = document.querySelectorAll('.alert');
+                alerts.forEach(alert => {
+                    alert.style.opacity = '0';
+                    alert.style.transform = 'translateY(-10px)';
+                    setTimeout(() => alert.remove(), 300);
+                });
+            }, 5000);
+        });
+        
+        // Delete confirmation
+        function confirmDelete(message) {
+            return confirm(message || 'Вы уверены, что хотите удалить этот элемент?');
+        }
+        
+        // AJAX delete function
+        function deleteItem(url, callback) {
+            if (!confirmDelete()) return;
+            
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    window.LendingAnalyzer.showNotification(data.message, 'success');
+                    if (callback) callback();
+                    else location.reload();
+                } else {
+                    window.LendingAnalyzer.showNotification(data.message, 'error');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                window.LendingAnalyzer.showNotification('Произошла ошибка', 'error');
+            });
+        }
+    </script>
+    
+    {% block scripts %}{% endblock %}
+</body>
+</html> 

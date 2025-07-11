@@ -1,0 +1,401 @@
+{% extends "admin/base.html" %}
+
+{% block title %}
+{% if service %}Редактирование услуги{% else %}Создание услуги{% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="content-wrapper">
+    <div class="content-header">
+        <h1>
+            <i class="fas fa-{{ 'edit' if service else 'plus' }}"></i>
+            {% if service %}Редактирование услуги{% else %}Создание услуги{% endif %}
+        </h1>
+        <div class="content-actions">
+            <a href="{{ url_for('admin_' + jwt_secret + '.services') }}" class="btn btn-secondary">
+                <i class="fas fa-arrow-left"></i>
+                Назад к списку
+            </a>
+        </div>
+    </div>
+
+    <div class="content-body">
+        {% if error %}
+        <div class="alert alert-danger">
+            <i class="fas fa-exclamation-triangle"></i>
+            {{ error }}
+        </div>
+        {% endif %}
+
+        <form method="POST" class="service-form">
+            <div class="form-grid">
+                <div class="form-section">
+                    <h3>Основная информация</h3>
+                    
+                    <div class="form-group">
+                        <label for="title" class="form-label required">Название услуги</label>
+                        <input type="text" 
+                               id="title" 
+                               name="title" 
+                               class="form-control" 
+                               value="{{ service.title if service else '' }}" 
+                               required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description" class="form-label required">Описание</label>
+                        <textarea id="description" 
+                                  name="description" 
+                                  class="form-control" 
+                                  rows="4" 
+                                  required>{{ service.description if service else '' }}</textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="icon" class="form-label">Иконка (Font Awesome)</label>
+                        <div class="icon-input-group">
+                            <input type="text" 
+                                   id="icon" 
+                                   name="icon" 
+                                   class="form-control" 
+                                   value="{{ service.icon if service else 'fas fa-cog' }}" 
+                                   placeholder="fas fa-cog">
+                            <div class="icon-preview">
+                                <i class="{{ service.icon if service else 'fas fa-cog' }}" id="icon-preview"></i>
+                            </div>
+                        </div>
+                        <small class="form-help">Используйте классы Font Awesome, например: fas fa-cog, fas fa-code, fas fa-paint-brush</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="color" class="form-label">Цвет</label>
+                        <div class="color-input-group">
+                            <input type="color" 
+                                   id="color" 
+                                   name="color" 
+                                   class="form-control-color" 
+                                   value="{{ service.color if service else '#8B5CF6' }}">
+                            <input type="text" 
+                                   id="color-text" 
+                                   name="color-text" 
+                                   class="form-control" 
+                                   value="{{ service.color if service else '#8B5CF6' }}" 
+                                   readonly>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>Коммерческая информация</h3>
+                    
+                    <div class="form-group">
+                        <label for="price_from" class="form-label">Цена от (USD)</label>
+                        <input type="number" 
+                               id="price_from" 
+                               name="price_from" 
+                               class="form-control" 
+                               value="{{ service.price_from if service and service.price_from else '' }}" 
+                               min="0" 
+                               step="0.01">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="duration" class="form-label">Длительность</label>
+                        <input type="text" 
+                               id="duration" 
+                               name="duration" 
+                               class="form-control" 
+                               value="{{ service.duration if service else '' }}" 
+                               placeholder="например: 2-4 недели">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="sort_order" class="form-label">Порядок сортировки</label>
+                        <input type="number" 
+                               id="sort_order" 
+                               name="sort_order" 
+                               class="form-control" 
+                               value="{{ service.sort_order if service else 0 }}" 
+                               min="0">
+                        <small class="form-help">Чем больше значение, тем выше в списке</small>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" 
+                                       name="is_active" 
+                                       value="1" 
+                                       {% if service and service.is_active %}checked{% endif %}>
+                                <span class="checkmark"></span>
+                                Активная услуга
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h3>Особенности услуги</h3>
+                <div id="features-container">
+                    {% if service and service.features %}
+                        {% for feature in service.get_features() %}
+                        <div class="feature-input-group">
+                            <input type="text" 
+                                   name="feature_{{ loop.index0 }}" 
+                                   class="form-control" 
+                                   value="{{ feature }}" 
+                                   placeholder="Особенность услуги">
+                            <button type="button" class="btn btn-outline-danger btn-sm" onclick="removeFeature(this)">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+                <button type="button" class="btn btn-outline-primary btn-sm" onclick="addFeature()">
+                    <i class="fas fa-plus"></i>
+                    Добавить особенность
+                </button>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-save"></i>
+                    {% if service %}Сохранить изменения{% else %}Создать услугу{% endif %}
+                </button>
+                <a href="{{ url_for('admin_' + jwt_secret + '.services') }}" class="btn btn-secondary">
+                    <i class="fas fa-times"></i>
+                    Отмена
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<style>
+.service-form {
+    max-width: 1000px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+@media (max-width: 768px) {
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.form-section {
+    background: var(--surface-color);
+    padding: 24px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+}
+
+.form-section h3 {
+    color: var(--text-primary);
+    margin-bottom: 20px;
+    font-size: 1.1em;
+    font-weight: 600;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 6px;
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+.form-label.required::after {
+    content: " *";
+    color: #ef4444;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px 12px;
+    background: var(--background-color);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    color: var(--text-primary);
+    font-size: 14px;
+    transition: all 0.2s ease;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+}
+
+.form-control-color {
+    width: 50px;
+    height: 40px;
+    padding: 2px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    background: var(--background-color);
+    cursor: pointer;
+}
+
+.icon-input-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.icon-preview {
+    width: 40px;
+    height: 40px;
+    background: var(--accent-color);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 18px;
+}
+
+.color-input-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.color-input-group .form-control {
+    flex: 1;
+}
+
+.feature-input-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.feature-input-group .form-control {
+    flex: 1;
+}
+
+.checkbox-group {
+    margin-top: 10px;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    color: var(--text-primary);
+    font-weight: normal;
+}
+
+.checkbox-label input[type="checkbox"] {
+    display: none;
+}
+
+.checkmark {
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--border-color);
+    border-radius: 4px;
+    margin-right: 10px;
+    position: relative;
+    transition: all 0.2s ease;
+}
+
+.checkbox-label input[type="checkbox"]:checked + .checkmark {
+    background: var(--accent-color);
+    border-color: var(--accent-color);
+}
+
+.checkbox-label input[type="checkbox"]:checked + .checkmark::after {
+    content: "✓";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.form-help {
+    color: var(--text-muted);
+    font-size: 0.85em;
+    margin-top: 4px;
+    display: block;
+}
+
+.form-actions {
+    display: flex;
+    gap: 12px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border-color);
+}
+
+.alert {
+    padding: 12px 16px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.alert-danger {
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    color: #ef4444;
+}
+</style>
+
+<script>
+let featureCounter = 0;
+
+function addFeature() {
+    const container = document.getElementById('features-container');
+    const div = document.createElement('div');
+    div.className = 'feature-input-group';
+    div.innerHTML = `
+        <input type="text" 
+               name="feature_${featureCounter}" 
+               class="form-control" 
+               placeholder="Особенность услуги">
+        <button type="button" class="btn btn-outline-danger btn-sm" onclick="removeFeature(this)">
+            <i class="fas fa-times"></i>
+        </button>
+    `;
+    container.appendChild(div);
+    featureCounter++;
+}
+
+function removeFeature(button) {
+    button.parentElement.remove();
+}
+
+// Обновление превью иконки
+document.getElementById('icon').addEventListener('input', function() {
+    const iconPreview = document.getElementById('icon-preview');
+    iconPreview.className = this.value || 'fas fa-cog';
+});
+
+// Синхронизация цвета
+document.getElementById('color').addEventListener('input', function() {
+    document.getElementById('color-text').value = this.value;
+});
+
+document.getElementById('color-text').addEventListener('input', function() {
+    document.getElementById('color').value = this.value;
+});
+</script>
+{% endblock %} 

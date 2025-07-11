@@ -1,0 +1,280 @@
+{% extends "base.html" %}
+
+{% block title %}Контакты - Анализатор кредитных заявок{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero" style="padding: 120px 0 80px;">
+    <div class="container text-center">
+        <h1 class="hero-title animate-fadeInUp">Свяжитесь с нами</h1>
+        <p class="hero-subtitle animate-fadeInUp" style="animation-delay: 0.2s; max-width: none;">
+            Начните разговор, чтобы установить хорошие отношения и бизнес.
+        </p>
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section class="section">
+    <div class="container">
+        <div class="grid grid-2" style="align-items: start; gap: 4rem;">
+            <!-- Contact Info -->
+            <div class="animate-fadeInLeft">
+                <p class="text-gradient" style="font-weight: 600; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 1rem;">
+                    СВЯЗАТЬСЯ
+                </p>
+                <h2 style="margin-bottom: 2rem;">
+                    Беспрепятственное общение, глобальное воздействие.
+                </h2>
+                <p style="color: var(--text-secondary); margin-bottom: 3rem;">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, 
+                    luctus nec ullamcorper mattis, pulvinar dapibus leo.
+                </p>
+                
+                <!-- Contact Cards -->
+                <div style="margin-bottom: 3rem;">
+                    <!-- Head Office -->
+                    <div style="display: flex; align-items: center; gap: 1.5rem; margin-bottom: 2rem;">
+                        <div style="width: 60px; height: 60px; background: var(--gradient-primary); 
+                                    border-radius: 50%; display: flex; align-items: center; 
+                                    justify-content: center; color: white; font-size: 1.5rem;">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div>
+                            <h4 style="color: var(--text-primary); margin-bottom: 0.5rem;">Главный офис</h4>
+                            <p style="color: var(--text-secondary); margin: 0;">
+                                г. Москва, ул. Тверская, 12<br>
+                                Россия, 125009
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- Email Support -->
+                    <div style="display: flex; align-items: center; gap: 1.5rem; margin-bottom: 2rem;">
+                        <div style="width: 60px; height: 60px; background: var(--gradient-primary); 
+                                    border-radius: 50%; display: flex; align-items: center; 
+                                    justify-content: center; color: white; font-size: 1.5rem;">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div>
+                            <h4 style="color: var(--text-primary); margin-bottom: 0.5rem;">Email поддержка</h4>
+                            <p style="color: var(--text-secondary); margin: 0;">
+                                support@lendinganalyzer.ru<br>
+                                help@lendinganalyzer.ru
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- Let's Talk -->
+                    <div style="display: flex; align-items: center; gap: 1.5rem; margin-bottom: 2rem;">
+                        <div style="width: 60px; height: 60px; background: var(--gradient-primary); 
+                                    border-radius: 50%; display: flex; align-items: center; 
+                                    justify-content: center; color: white; font-size: 1.5rem;">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div>
+                            <h4 style="color: var(--text-primary); margin-bottom: 0.5rem;">Давайте поговорим</h4>
+                            <p style="color: var(--text-secondary); margin: 0;">
+                                Телефон: +7 (495) 123-45-67<br>
+                                Факс: +7 (495) 123-45-68
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- Working Hours -->
+                    <div style="display: flex; align-items: center; gap: 1.5rem; margin-bottom: 2rem;">
+                        <div style="width: 60px; height: 60px; background: var(--gradient-primary); 
+                                    border-radius: 50%; display: flex; align-items: center; 
+                                    justify-content: center; color: white; font-size: 1.5rem;">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div>
+                            <h4 style="color: var(--text-primary); margin-bottom: 0.5rem;">Рабочие часы</h4>
+                            <p style="color: var(--text-secondary); margin: 0;">
+                                Понедельник - Пятница<br>
+                                09:00 - 18:00
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Social Media -->
+                <div>
+                    <h4 style="margin-bottom: 1rem;">Следите за нашими социальными сетями</h4>
+                    <div style="display: flex; gap: 1rem;">
+                        <a href="#" class="social-link">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Contact Form -->
+            <div class="animate-fadeInRight">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Отправьте нам сообщение</h3>
+                        <p style="color: var(--text-secondary);">
+                            Пожалуйста, не стесняйтесь присылать нам любые вопросы, отзывы или 
+                            предложения, которые у вас могут быть.
+                        </p>
+                    </div>
+                    
+                    <div class="card-body">
+                        <form id="contact-form" method="POST">
+                            <div class="grid grid-2" style="gap: 1.5rem; margin-bottom: 1.5rem;">
+                                <div>
+                                    <label for="name" style="display: block; color: var(--text-primary); 
+                                                          font-weight: 500; margin-bottom: 0.5rem;">Имя</label>
+                                    <input type="text" id="name" name="name" required
+                                           style="width: 100%; padding: 0.75rem; background: var(--dark-bg-tertiary); 
+                                                  border: 1px solid var(--border-color); border-radius: var(--radius-md); 
+                                                  color: var(--text-primary); font-size: var(--font-size-base);"
+                                           placeholder="Имя">
+                                </div>
+                                <div>
+                                    <label for="company" style="display: block; color: var(--text-primary); 
+                                                               font-weight: 500; margin-bottom: 0.5rem;">Компания</label>
+                                    <input type="text" id="company" name="company"
+                                           style="width: 100%; padding: 0.75rem; background: var(--dark-bg-tertiary); 
+                                                  border: 1px solid var(--border-color); border-radius: var(--radius-md); 
+                                                  color: var(--text-primary); font-size: var(--font-size-base);"
+                                           placeholder="Компания">
+                                </div>
+                            </div>
+                            
+                            <div class="grid grid-2" style="gap: 1.5rem; margin-bottom: 1.5rem;">
+                                <div>
+                                    <label for="phone" style="display: block; color: var(--text-primary); 
+                                                           font-weight: 500; margin-bottom: 0.5rem;">Телефон</label>
+                                    <input type="tel" id="phone" name="phone"
+                                           style="width: 100%; padding: 0.75rem; background: var(--dark-bg-tertiary); 
+                                                  border: 1px solid var(--border-color); border-radius: var(--radius-md); 
+                                                  color: var(--text-primary); font-size: var(--font-size-base);"
+                                           placeholder="Телефон">
+                                </div>
+                                <div>
+                                    <label for="email" style="display: block; color: var(--text-primary); 
+                                                            font-weight: 500; margin-bottom: 0.5rem;">Email</label>
+                                    <input type="email" id="email" name="email" required
+                                           style="width: 100%; padding: 0.75rem; background: var(--dark-bg-tertiary); 
+                                                  border: 1px solid var(--border-color); border-radius: var(--radius-md); 
+                                                  color: var(--text-primary); font-size: var(--font-size-base);"
+                                           placeholder="Email">
+                                </div>
+                            </div>
+                            
+                            <div style="margin-bottom: 1.5rem;">
+                                <label for="subject" style="display: block; color: var(--text-primary); 
+                                                           font-weight: 500; margin-bottom: 0.5rem;">Тема</label>
+                                <input type="text" id="subject" name="subject" required
+                                       style="width: 100%; padding: 0.75rem; background: var(--dark-bg-tertiary); 
+                                              border: 1px solid var(--border-color); border-radius: var(--radius-md); 
+                                              color: var(--text-primary); font-size: var(--font-size-base);"
+                                       placeholder="Тема">
+                            </div>
+                            
+                            <div style="margin-bottom: 2rem;">
+                                <label for="message" style="display: block; color: var(--text-primary); 
+                                                            font-weight: 500; margin-bottom: 0.5rem;">Сообщение</label>
+                                <textarea id="message" name="message" rows="5" required
+                                          style="width: 100%; padding: 0.75rem; background: var(--dark-bg-tertiary); 
+                                                 border: 1px solid var(--border-color); border-radius: var(--radius-md); 
+                                                 color: var(--text-primary); font-size: var(--font-size-base); 
+                                                 resize: vertical;"
+                                          placeholder="Сообщение"></textarea>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary" style="width: 100%;">
+                                <i class="fas fa-paper-plane"></i>
+                                Отправить сообщение
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Map Section -->
+<section class="section" style="padding: 0; background: var(--dark-bg-secondary);">
+    <div style="height: 400px; background: var(--dark-bg-tertiary); position: relative; 
+                overflow: hidden; border-top: 1px solid var(--border-color);">
+        <!-- Map Placeholder -->
+        <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; 
+                    background: linear-gradient(45deg, var(--dark-bg-tertiary) 25%, transparent 25%), 
+                               linear-gradient(-45deg, var(--dark-bg-tertiary) 25%, transparent 25%), 
+                               linear-gradient(45deg, transparent 75%, var(--dark-bg-tertiary) 75%), 
+                               linear-gradient(-45deg, transparent 75%, var(--dark-bg-tertiary) 75%);
+                    background-size: 20px 20px;
+                    background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+                    opacity: 0.1;">
+        </div>
+        
+        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); 
+                    text-align: center; z-index: 2;">
+            <i class="fas fa-map-marked-alt" style="font-size: 4rem; color: var(--primary-color); margin-bottom: 1rem;"></i>
+            <h3 style="color: var(--text-primary); margin-bottom: 0.5rem;">Интерактивная карта</h3>
+            <p style="color: var(--text-secondary);">Здесь будет размещена карта с нашим местоположением</p>
+        </div>
+        
+        <!-- Map Controls -->
+        <div style="position: absolute; top: 20px; right: 20px; z-index: 3;">
+            <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                <button style="width: 40px; height: 40px; background: var(--dark-bg-card); 
+                               border: 1px solid var(--border-color); border-radius: var(--radius-md); 
+                               color: var(--text-primary); cursor: pointer;">
+                    <i class="fas fa-plus"></i>
+                </button>
+                <button style="width: 40px; height: 40px; background: var(--dark-bg-card); 
+                               border: 1px solid var(--border-color); border-radius: var(--radius-md); 
+                               color: var(--text-primary); cursor: pointer;">
+                    <i class="fas fa-minus"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Location Marker -->
+        <div style="position: absolute; top: 40%; left: 60%; transform: translate(-50%, -100%); z-index: 3;">
+            <div style="width: 20px; height: 20px; background: var(--primary-color); 
+                        border: 3px solid white; border-radius: 50%; 
+                        box-shadow: 0 0 10px rgba(139, 92, 246, 0.5);"></div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+// Дополнительная обработка формы контактов
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('contact-form');
+    const inputs = form.querySelectorAll('input, textarea');
+    
+    // Стилизация фокуса полей
+    inputs.forEach(input => {
+        input.addEventListener('focus', function() {
+            this.style.borderColor = 'var(--primary-color)';
+            this.style.boxShadow = '0 0 0 3px rgba(139, 92, 246, 0.1)';
+        });
+        
+        input.addEventListener('blur', function() {
+            this.style.borderColor = 'var(--border-color)';
+            this.style.boxShadow = 'none';
+        });
+    });
+});
+</script>
+{% endblock %} 

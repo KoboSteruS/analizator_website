@@ -1,0 +1,226 @@
+{% extends "base.html" %}
+
+{% block title %}Портфолио - Анализатор кредитных заявок{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero" style="padding: 120px 0 80px;">
+    <div class="container text-center">
+        <h1 class="hero-title animate-fadeInUp">Портфолио</h1>
+        <p class="hero-subtitle animate-fadeInUp" style="animation-delay: 0.2s; max-width: none;">
+            Революционизация цифровых ландшафтов: LendingAnalyzer, Ваш<br>
+            Трейлбэкинг партнер.
+        </p>
+    </div>
+</section>
+
+<!-- Innovation Section -->
+<section class="section">
+    <div class="container text-center">
+        <h2 style="margin-bottom: 1rem;">Раскрытие силы инноваций и креативности.</h2>
+        
+        <!-- Portfolio Grid -->
+        <div class="grid grid-3" style="margin-top: 4rem;">
+            {% for project in portfolio %}
+            <div class="card animate-fadeInUp" style="animation-delay: {{ loop.index * 0.1 }}s;">
+                <div style="position: relative; margin-bottom: 1.5rem;">
+                    {% if project.image_url %}
+                    <div style="background: url('{{ project.image_url }}') center/cover; height: 200px; border-radius: var(--radius-lg); border: 1px solid var(--border-color);">
+                    </div>
+                    {% else %}
+                    <div style="background: var(--gradient-card); height: 200px; border-radius: var(--radius-lg); 
+                                display: flex; align-items: center; justify-content: center; border: 1px solid var(--border-color);">
+                        {% if project.category == "Веб-разработка" %}
+                            <i class="fas fa-code" style="font-size: 3rem; color: var(--primary-color);"></i>
+                        {% elif project.category == "Цифровой маркетинг" %}
+                            <i class="fas fa-chart-line" style="font-size: 3rem; color: var(--secondary-color);"></i>
+                        {% elif project.category == "Брендинг" %}
+                            <i class="fas fa-paint-brush" style="font-size: 3rem; color: var(--warning-color);"></i>
+                        {% elif project.category == "E-commerce" %}
+                            <i class="fas fa-shopping-cart" style="font-size: 3rem; color: var(--primary-color);"></i>
+                        {% elif project.category == "Дизайн" %}
+                            <i class="fas fa-palette" style="font-size: 3rem; color: var(--success-color);"></i>
+                        {% elif project.category == "Мобильное приложение" %}
+                            <i class="fas fa-mobile-alt" style="font-size: 3rem; color: var(--accent-color);"></i>
+                        {% else %}
+                            <i class="fas fa-laptop-code" style="font-size: 3rem; color: var(--primary-color);"></i>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                    
+                    <div style="position: absolute; top: 1rem; left: 1rem; background: {{ project.get_category_color() }}; 
+                                color: white; padding: 0.25rem 0.75rem; border-radius: var(--radius-md); font-size: 0.75rem;">
+                        {{ project.category }}
+                    </div>
+                    
+                    {% if project.completion_date %}
+                    <div style="position: absolute; bottom: 1rem; right: 1rem; color: var(--text-muted); font-size: 0.875rem;">
+                        {{ project.completion_date.strftime('%d %b %Y') }}
+                    </div>
+                    {% endif %}
+                </div>
+                
+                <div style="text-align: left;">
+                    <h4 style="margin-bottom: 0.5rem;">{{ project.title }}</h4>
+                    <p style="color: var(--text-muted); font-size: 0.875rem; margin-bottom: 0.5rem;">{{ project.client }}</p>
+                    {% if project.location %}
+                    <p style="color: var(--text-muted); font-size: 0.75rem; margin-bottom: 1rem;">{{ project.location }}</p>
+                    {% endif %}
+                    
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        {% if project.price %}
+                        <span style="color: var(--primary-color); font-weight: 600; font-size: 1.25rem;">{{ project.price_formatted }}</span>
+                        {% else %}
+                        <span style="color: var(--text-muted); font-size: 1rem;">Цена не указана</span>
+                        {% endif %}
+                        
+                        {% if project.project_url %}
+                        <a href="{{ project.project_url }}" target="_blank" class="btn btn-outline btn-sm">Просмотр</a>
+                        {% else %}
+                        <a href="#" class="btn btn-outline btn-sm">Просмотр</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% else %}
+            <div class="card" style="grid-column: 1 / -1; text-align: center; padding: 3rem;">
+                <i class="fas fa-briefcase" style="font-size: 3rem; color: var(--text-muted); margin-bottom: 1rem;"></i>
+                <h3 style="color: var(--text-muted);">Пока нет проектов</h3>
+                <p style="color: var(--text-muted);">Проекты будут отображаться здесь по мере их добавления.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Excellence CTA Section -->
+<section class="section" style="background: var(--dark-bg-secondary);">
+    <div class="container">
+        <div class="grid grid-2" style="align-items: center; gap: 4rem;">
+            <div class="animate-fadeInLeft">
+                <h2 style="margin-bottom: 2rem;">
+                    Первопроходцы цифрового совершенства: 
+                    <span class="text-gradient">Откройте для себя преимущества LendingAnalyzer</span>
+                </h2>
+                <p style="margin-bottom: 2rem; color: var(--text-secondary);">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, 
+                    luctus nec ullamcorper mattis, pulvinar dapibus leo.
+                </p>
+                <a href="{{ url_for('main.contact') }}" class="btn btn-primary">
+                    <i class="fas fa-arrow-right"></i>
+                    Начать проект
+                </a>
+            </div>
+            <div class="animate-fadeInRight">
+                <!-- Placeholder для изображения -->
+                <div style="background: var(--gradient-card); border-radius: var(--radius-2xl); 
+                            padding: 3rem; text-align: center; border: 1px solid var(--border-color);">
+                    <i class="fas fa-laptop-code" style="font-size: 4rem; color: var(--primary-color); margin-bottom: 1rem;"></i>
+                    <p style="color: var(--text-secondary);">Разработка и дизайн</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials Section -->
+<!-- <section class="section">
+    <div class="container">
+        <div class="text-center" style="margin-bottom: 3rem;">
+            <p class="text-gradient" style="font-weight: 600; text-transform: uppercase; letter-spacing: 2px;">
+                Отзывы
+            </p>
+            <h2>Отзывы клиентов и отзывы</h2>
+        </div>
+        
+        <div class="grid grid-3">
+            <div class="card animate-fadeInUp" style="animation-delay: 0.1s;">
+                <div style="margin-bottom: 1.5rem;">
+                    <div style="display: flex; margin-bottom: 1rem;">
+                        <i class="fas fa-star" style="color: var(--warning-color);"></i>
+                        <i class="fas fa-star" style="color: var(--warning-color);"></i>
+                        <i class="fas fa-star" style="color: var(--warning-color);"></i>
+                        <i class="fas fa-star" style="color: var(--warning-color);"></i>
+                        <i class="fas fa-star" style="color: var(--warning-color);"></i>
+                    </div>
+                    <p style="color: var(--text-secondary); font-style: italic;">
+                        "LendingAnalyzer произвел революцию в наших процессах кредитования. 
+                        Результат превзошел все наши ожидания."
+                    </p>
+                </div>
+                <div style="display: flex; align-items: center; gap: 1rem;">
+                    <div style="width: 50px; height: 50px; background: var(--gradient-primary); 
+                                border-radius: 50%; display: flex; align-items: center; 
+                                justify-content: center; color: white; font-weight: bold;">
+                        А
+                    </div>
+                    <div>
+                        <h5 style="margin: 0; color: var(--text-primary);">Анна Петрова</h5>
+                        <p style="margin: 0; color: var(--text-muted); font-size: var(--font-size-sm);">
+                            ООО "ФинансТех"
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card animate-fadeInUp" style="animation-delay: 0.2s;">
+                <div style="margin-bottom: 1.5rem;">
+                    <div style="display: flex; margin-bottom: 1rem;">
+                        <i class="fas fa-star" style="color: var(--warning-color);"></i>
+                        <i class="fas fa-star" style="color: var(--warning-color);"></i>
+                        <i class="fas fa-star" style="color: var(--warning-color);"></i>
+                        <i class="fas fa-star" style="color: var(--warning-color);"></i>
+                        <i class="fas fa-star" style="color: var(--warning-color);"></i>
+                    </div>
+                    <p style="color: var(--text-secondary); font-style: italic;">
+                        "Превосходная работа! Команда LendingAnalyzer создала именно то, 
+                        что мы искали. Рекомендуем всем."
+                    </p>
+                </div>
+                <div style="display: flex; align-items: center; gap: 1rem;">
+                    <div style="width: 50px; height: 50px; background: var(--gradient-primary); 
+                                border-radius: 50%; display: flex; align-items: center; 
+                                justify-content: center; color: white; font-weight: bold;">
+                        М
+                    </div>
+                    <div>
+                        <h5 style="margin: 0; color: var(--text-primary);">Михаил Сидоров</h5>
+                        <p style="margin: 0; color: var(--text-muted); font-size: var(--font-size-sm);">
+                            ПАО "Кредит Электроникс"
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card animate-fadeInUp" style="animation-delay: 0.3s;">
+                <div style="margin-bottom: 1.5rem;">
+                    <div style="display: flex; margin-bottom: 1rem;">
+                        <i class="fas fa-star" style="color: var(--warning-color);"></i>
+                        <i class="fas fa-star" style="color: var(--warning-color);"></i>
+                        <i class="fas fa-star" style="color: var(--warning-color);"></i>
+                        <i class="fas fa-star" style="color: var(--warning-color);"></i>
+                        <i class="fas fa-star" style="color: var(--warning-color);"></i>
+                    </div>
+                    <p style="color: var(--text-secondary); font-style: italic;">
+                        "Быстро, качественно, профессионально. Именно такого сервиса 
+                        мы ожидали. Будем сотрудничать и дальше."
+                    </p>
+                </div>
+                <div style="display: flex; align-items: center; gap: 1rem;">
+                    <div style="width: 50px; height: 50px; background: var(--gradient-primary); 
+                                border-radius: 50%; display: flex; align-items: center; 
+                                justify-content: center; color: white; font-weight: bold;">
+                        Е
+                    </div>
+                    <div>
+                        <h5 style="margin: 0; color: var(--text-primary);">Елена Волкова</h5>
+                        <p style="margin: 0; color: var(--text-muted); font-size: var(--font-size-sm);">
+                            ООО "ПрофКредитинг"
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section> -->
+{% endblock %} 
