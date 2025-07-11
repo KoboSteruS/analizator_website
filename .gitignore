@@ -122,8 +122,6 @@ dmypy.json
 .pyre/
 
 # Flask specific
-*.db
-migrations/
 logs/
 
 # IDE
