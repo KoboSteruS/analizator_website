@@ -10,6 +10,7 @@ from werkzeug.datastructures import FileStorage
 from werkzeug.utils import secure_filename
 from PIL import Image, ImageOps
 from loguru import logger
+from .logging import log_file_operation
 import mimetypes
 
 # Разрешенные расширения файлов
@@ -224,11 +225,38 @@ def upload_image(file: FileStorage, category: str,
         
         # Сохранение файла
         file.save(file_path)
+        file_size = os.path.getsize(file_path)
         logger.info(f"Файл сохранен: {file_path}")
+        
+        # Логирование операции загрузки
+        log_file_operation(
+            operation="UPLOAD",
+            file_path=file_path,
+            file_size=file_size,
+            details={
+                'category': category,
+                'original_filename': file.filename,
+                'new_filename': unique_filename,
+                'file_type': file.mimetype
+            }
+        )
         
         # Оптимизация изображения
         if not optimize_image(file_path):
             logger.warning(f"Не удалось оптимизировать изображение: {file_path}")
+        else:
+            # Логирование оптимизации
+            optimized_size = os.path.getsize(file_path)
+            log_file_operation(
+                operation="OPTIMIZE",
+                file_path=file_path,
+                file_size=optimized_size,
+                details={
+                    'original_size': file_size,
+                    'optimized_size': optimized_size,
+                    'compression_ratio': round((file_size - optimized_size) / file_size * 100, 2) if file_size > 0 else 0
+                }
+            )
         
         # Создание превью
         thumbnail_path = None
@@ -239,6 +267,18 @@ def upload_image(file: FileStorage, category: str,
             if not create_thumbnail(file_path, thumbnail_path):
                 logger.warning(f"Не удалось создать превью: {thumbnail_path}")
                 thumbnail_path = None
+            else:
+                # Логирование создания превью
+                thumb_size = os.path.getsize(thumbnail_path)
+                log_file_operation(
+                    operation="THUMBNAIL",
+                    file_path=thumbnail_path,
+                    file_size=thumb_size,
+                    details={
+                        'source_file': file_path,
+                        'thumbnail_size': f"{THUMBNAIL_SIZE[0]}x{THUMBNAIL_SIZE[1]}"
+                    }
+                )
         
         # Возвращаем относительный путь для URL
         relative_path = f"/static/uploads/{category}/{unique_filename}"
@@ -274,8 +314,17 @@ def delete_image(image_path: str) -> bool:
         
         # Удаление основного файла
         if os.path.exists(full_path):
+            file_size = os.path.getsize(full_path)
             os.remove(full_path)
             logger.info(f"Изображение удалено: {full_path}")
+            
+            # Логирование удаления
+            log_file_operation(
+                operation="DELETE",
+                file_path=full_path,
+                file_size=file_size,
+                details={'file_type': 'image'}
+            )
         
         # Удаление превью
         dir_path = os.path.dirname(full_path)
@@ -283,8 +332,17 @@ def delete_image(image_path: str) -> bool:
         thumb_path = os.path.join(dir_path, f"thumb_{filename}")
         
         if os.path.exists(thumb_path):
+            thumb_size = os.path.getsize(thumb_path)
             os.remove(thumb_path)
             logger.info(f"Превью удалено: {thumb_path}")
+            
+            # Логирование удаления превью
+            log_file_operation(
+                operation="DELETE",
+                file_path=thumb_path,
+                file_size=thumb_size,
+                details={'file_type': 'thumbnail'}
+            )
         
         return True
         

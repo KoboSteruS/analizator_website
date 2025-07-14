@@ -12,7 +12,7 @@ import uuid
 
 from app import db
 from app.models import User, Service, Portfolio
-from app.utils import upload_image, delete_image, get_image_info
+from app.utils import upload_image, delete_image, get_image_info, log_security_event, log_admin_action
 
 
 def create_admin_blueprint(jwt_secret: str) -> Blueprint:
@@ -35,7 +35,21 @@ def create_admin_blueprint(jwt_secret: str) -> Blueprint:
             user = User.get_by_jwt_secret(jwt_secret)
             if not user or not user.is_superuser:
                 logger.warning(f"Неавторизованный доступ к админке с JWT: {jwt_secret}")
+                log_security_event(
+                    event_type="ADMIN_ACCESS_DENIED",
+                    details={
+                        'jwt_secret': jwt_secret[:10] + "...",  # Частичное логирование JWT
+                        'reason': 'invalid_jwt_or_not_superuser'
+                    }
+                )
                 return jsonify({"error": "Доступ запрещен"}), 403
+            
+            # Успешный доступ к админке
+            log_security_event(
+                event_type="ADMIN_ACCESS_GRANTED",
+                user_id=str(user.id),
+                details={'email': user.email}
+            )
             
             # Сохраняем пользователя в сессии
             session['admin_user_id'] = str(user.id)
@@ -128,6 +142,20 @@ def create_admin_blueprint(jwt_secret: str) -> Blueprint:
                 db.session.add(service)
                 db.session.commit()
                 
+                # Логирование действия админа
+                user_id = session.get('admin_user_id')
+                log_admin_action(
+                    action="CREATE",
+                    resource="service",
+                    resource_id=str(service.id),
+                    user_id=user_id,
+                    details={
+                        'title': service.title,
+                        'price_from': service.price_from,
+                        'has_image': bool(service.image_url)
+                    }
+                )
+                
                 logger.info(f"Создана новая услуга: {service.title}")
                 return redirect(url_for(f'admin_{jwt_secret}.services'))
                 
@@ -208,6 +236,21 @@ def create_admin_blueprint(jwt_secret: str) -> Blueprint:
                 
                 db.session.commit()
                 
+                # Логирование действия админа
+                user_id = session.get('admin_user_id')
+                log_admin_action(
+                    action="UPDATE",
+                    resource="service",
+                    resource_id=str(service.id),
+                    user_id=user_id,
+                    details={
+                        'title': service.title,
+                        'price_from': service.price_from,
+                        'has_image': bool(service.image_url),
+                        'image_updated': bool(upload_error is None and 'image_file' in request.files)
+                    }
+                )
+                
                 logger.info(f"Обновлена услуга: {service.title}")
                 return redirect(url_for(f'admin_{jwt_secret}.services'))
                 
@@ -237,6 +280,20 @@ def create_admin_blueprint(jwt_secret: str) -> Blueprint:
         
         try:
             title = service.title
+            
+            # Логирование действия админа
+            user_id = session.get('admin_user_id')
+            log_admin_action(
+                action="DELETE",
+                resource="service",
+                resource_id=str(service.id),
+                user_id=user_id,
+                details={
+                    'title': title,
+                    'had_image': bool(service.image_url)
+                }
+            )
+            
             db.session.delete(service)
             db.session.commit()
             
@@ -324,6 +381,23 @@ def create_admin_blueprint(jwt_secret: str) -> Blueprint:
                 
                 db.session.add(project)
                 db.session.commit()
+                
+                # Логирование действия админа
+                user_id = session.get('admin_user_id')
+                log_admin_action(
+                    action="CREATE",
+                    resource="portfolio",
+                    resource_id=str(project.id),
+                    user_id=user_id,
+                    details={
+                        'title': project.title,
+                        'client': project.client,
+                        'category': project.category,
+                        'price': project.price,
+                        'is_featured': project.is_featured,
+                        'has_image': bool(project.image_url)
+                    }
+                )
                 
                 logger.info(f"Создан новый проект: {project.title}")
                 return redirect(url_for(f'admin_{jwt_secret}.portfolio'))
@@ -421,6 +495,24 @@ def create_admin_blueprint(jwt_secret: str) -> Blueprint:
                 
                 db.session.commit()
                 
+                # Логирование действия админа
+                user_id = session.get('admin_user_id')
+                log_admin_action(
+                    action="UPDATE",
+                    resource="portfolio",
+                    resource_id=str(project.id),
+                    user_id=user_id,
+                    details={
+                        'title': project.title,
+                        'client': project.client,
+                        'category': project.category,
+                        'price': project.price,
+                        'is_featured': project.is_featured,
+                        'has_image': bool(project.image_url),
+                        'image_updated': bool(upload_error is None and 'image_file' in request.files)
+                    }
+                )
+                
                 logger.info(f"Обновлен проект: {project.title}")
                 return redirect(url_for(f'admin_{jwt_secret}.portfolio'))
                 
@@ -457,6 +549,23 @@ def create_admin_blueprint(jwt_secret: str) -> Blueprint:
         
         try:
             title = project.title
+            
+            # Логирование действия админа
+            user_id = session.get('admin_user_id')
+            log_admin_action(
+                action="DELETE",
+                resource="portfolio",
+                resource_id=str(project.id),
+                user_id=user_id,
+                details={
+                    'title': title,
+                    'client': project.client,
+                    'category': project.category,
+                    'was_featured': project.is_featured,
+                    'had_image': bool(project.image_url)
+                }
+            )
+            
             db.session.delete(project)
             db.session.commit()
             

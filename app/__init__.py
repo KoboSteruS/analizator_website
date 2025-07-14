@@ -43,7 +43,12 @@ def create_app(config_name: Optional[str] = None) -> Flask:
     jwt.init_app(app)
     
     # Настройка логирования
+    from app.utils import setup_logging
     setup_logging(app)
+    
+    # Настройка middleware
+    from app.middleware import LoggingMiddleware
+    LoggingMiddleware(app)
     
     # Регистрация blueprints
     register_blueprints(app)
@@ -54,26 +59,6 @@ def create_app(config_name: Optional[str] = None) -> Flask:
     logger.info(f"Flask приложение создано с конфигурацией: {config_name}")
     
     return app
-
-
-def setup_logging(app: Flask) -> None:
-    """Настройка логирования через loguru."""
-    logger.add(
-        "logs/app.log",
-        rotation="500 MB",
-        level="INFO",
-        format="{time:YYYY-MM-DD HH:mm:ss} | {level} | {name}:{function}:{line} - {message}",
-        backtrace=True,
-        diagnose=True
-    )
-    
-    if app.config.get('DEBUG'):
-        logger.add(
-            "logs/debug.log",
-            rotation="100 MB",
-            level="DEBUG",
-            format="{time:YYYY-MM-DD HH:mm:ss} | {level} | {name}:{function}:{line} - {message}"
-        )
 
 
 def register_blueprints(app: Flask) -> None:
@@ -89,19 +74,23 @@ def register_blueprints(app: Flask) -> None:
 
 def register_error_handlers(app: Flask) -> None:
     """Регистрация обработчиков ошибок."""
+    from app.utils import log_request
     
     @app.errorhandler(404)
     def not_found(error):
         logger.warning(f"404 ошибка: {error}")
+        log_request(response_status=404)
         return {"error": "Ресурс не найден"}, 404
     
     @app.errorhandler(500)
     def internal_error(error):
-        logger.error(f"500 ошибка: {error}")
+        logger.error(f"500 ошибка: {error}", exc_info=True)
+        log_request(response_status=500)
         db.session.rollback()
         return {"error": "Внутренняя ошибка сервера"}, 500
     
     @app.errorhandler(400)
     def bad_request(error):
         logger.warning(f"400 ошибка: {error}")
+        log_request(response_status=400)
         return {"error": "Неверный запрос"}, 400 

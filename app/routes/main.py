@@ -169,14 +169,5 @@ def not_found_in_main(error):
     }), 404
 
 
-@main_bp.before_request
-def log_request():
-    """Логирование всех запросов к основному blueprint."""
-    logger.info(f"{request.method} {request.path} от {request.remote_addr}")
-
-
-@main_bp.after_request
-def log_response(response):
-    """Логирование ответов основного blueprint."""
-    logger.info(f"Ответ {response.status_code} для {request.method} {request.path}")
-    return response 
+# Логирование теперь обрабатывается через LoggingMiddleware
+# Удаляем дублирующее логирование 
