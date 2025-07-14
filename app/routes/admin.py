@@ -12,21 +12,7 @@ import uuid
 
 from app import db
 from app.models import User, Service, Portfolio
-# Временно отключено для исправления 500 ошибки на продакшн
-# from app.utils import upload_image, delete_image, get_image_info
-
-# Временные заглушки для функций загрузки
-def upload_image(file, category, create_thumb=True):
-    """Временная заглушка для функции загрузки изображений."""
-    return False, "Загрузка изображений временно отключена", None
-
-def delete_image(image_path):
-    """Временная заглушка для функции удаления изображений."""
-    return True
-
-def get_image_info(image_path):
-    """Временная заглушка для функции информации об изображениях."""
-    return None
+from app.utils import upload_image, delete_image, get_image_info
 
 
 def create_admin_blueprint(jwt_secret: str) -> Blueprint:

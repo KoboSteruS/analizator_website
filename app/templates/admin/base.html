@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Админка - Analizator{% endblock %}</title>
+    <title>{% block title %}Админка - LendingAnalyzer{% endblock %}</title>
     
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
@@ -496,16 +496,16 @@
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    window.Analizator.showNotification(data.message, 'success');
+                    window.LendingAnalyzer.showNotification(data.message, 'success');
                     if (callback) callback();
                     else location.reload();
                 } else {
-                    window.Analizator.showNotification(data.message, 'error');
+                    window.LendingAnalyzer.showNotification(data.message, 'error');
                 }
             })
             .catch(error => {
                 console.error('Error:', error);
-                window.Analizator.showNotification('Произошла ошибка', 'error');
+                window.LendingAnalyzer.showNotification('Произошла ошибка', 'error');
             });
         }
     </script>
