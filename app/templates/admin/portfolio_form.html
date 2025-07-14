@@ -27,7 +27,7 @@
         </div>
         {% endif %}
 
-        <form method="POST" class="portfolio-form">
+        <form method="POST" enctype="multipart/form-data" class="portfolio-form">
             <div class="form-grid">
                 <div class="form-section">
                     <h3>Основная информация</h3>
@@ -91,13 +91,41 @@
                     <h3>Медиа и ссылки</h3>
                     
                     <div class="form-group">
-                        <label for="image_url" class="form-label">URL изображения</label>
-                        <input type="url" 
-                               id="image_url" 
-                               name="image_url" 
-                               class="form-control" 
-                               value="{{ project.image_url if project else '' }}" 
-                               placeholder="https://example.com/image.jpg">
+                        <label class="form-label">Изображение проекта</label>
+                        
+                        <!-- Текущее изображение -->
+                        {% if project and project.image_url %}
+                        <div class="current-image-preview">
+                            <img src="{{ project.image_url }}" alt="{{ project.title }}" class="current-image">
+                            <p class="current-image-info">Текущее изображение</p>
+                        </div>
+                        {% endif %}
+                        
+                        <!-- Загрузка нового файла -->
+                        <div class="image-upload-section">
+                            <label for="image_file" class="form-label">Загрузить новое изображение</label>
+                            <input type="file" 
+                                   id="image_file" 
+                                   name="image_file" 
+                                   class="form-control file-input" 
+                                   accept="image/*"
+                                   onchange="previewImage(this)">
+                            <div class="form-help">
+                                Поддерживаемые форматы: PNG, JPG, JPEG, GIF, WEBP. Максимальный размер: 5MB
+                            </div>
+                            <div id="image_preview" class="image-preview"></div>
+                        </div>
+                        
+                        <!-- Альтернативно - URL изображения -->
+                        <div class="image-url-section">
+                            <label for="image_url" class="form-label">Или укажите URL изображения</label>
+                            <input type="url" 
+                                   id="image_url" 
+                                   name="image_url" 
+                                   class="form-control" 
+                                   value="{{ project.image_url if project else '' }}" 
+                                   placeholder="https://example.com/image.jpg">
+                        </div>
                     </div>
 
                     <div class="form-group">
@@ -372,6 +400,68 @@ select.form-control {
     border: 1px solid rgba(239, 68, 68, 0.3);
     color: #ef4444;
 }
+
+/* Стили для загрузки изображений */
+.current-image-preview {
+    margin-bottom: 20px;
+    padding: 15px;
+    background: var(--card-background);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+}
+
+.current-image {
+    max-width: 200px;
+    max-height: 200px;
+    border-radius: 6px;
+    object-fit: cover;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.current-image-info {
+    color: var(--text-muted);
+    font-size: 0.9em;
+    margin: 0;
+}
+
+.image-upload-section {
+    margin-bottom: 20px;
+    padding: 15px;
+    background: var(--card-background);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+}
+
+.image-url-section {
+    padding: 15px;
+    background: var(--card-background);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+}
+
+.file-input {
+    margin-bottom: 10px;
+}
+
+.image-preview {
+    margin-top: 15px;
+    display: none;
+}
+
+.image-preview img {
+    max-width: 200px;
+    max-height: 200px;
+    border-radius: 6px;
+    object-fit: cover;
+    border: 1px solid var(--border-color);
+}
+
+.image-preview-info {
+    margin-top: 8px;
+    color: var(--text-muted);
+    font-size: 0.9em;
+}
 </style>
 
 <script>
@@ -397,6 +487,58 @@ function addTech() {
 function removeTech(button) {
     button.parentElement.remove();
 }
+
+// Функция превью изображения
+function previewImage(input) {
+    const preview = document.getElementById('image_preview');
+    const file = input.files[0];
+    
+    if (file) {
+        // Проверка размера файла (5MB)
+        if (file.size > 5 * 1024 * 1024) {
+            alert('Размер файла не должен превышать 5MB');
+            input.value = '';
+            preview.style.display = 'none';
+            return;
+        }
+        
+        // Проверка типа файла
+        if (!file.type.startsWith('image/')) {
+            alert('Выберите файл изображения');
+            input.value = '';
+            preview.style.display = 'none';
+            return;
+        }
+        
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            preview.innerHTML = `
+                <img src="${e.target.result}" alt="Превью">
+                <div class="image-preview-info">
+                    <strong>Файл:</strong> ${file.name}<br>
+                    <strong>Размер:</strong> ${(file.size / 1024 / 1024).toFixed(2)} MB<br>
+                    <strong>Тип:</strong> ${file.type}
+                </div>
+            `;
+            preview.style.display = 'block';
+        };
+        reader.readAsDataURL(file);
+        
+        // Очищаем URL поле при выборе файла
+        document.getElementById('image_url').value = '';
+    } else {
+        preview.style.display = 'none';
+    }
+}
+
+// Очистка превью при изменении URL
+document.getElementById('image_url').addEventListener('input', function() {
+    if (this.value) {
+        // Очищаем файл при вводе URL
+        document.getElementById('image_file').value = '';
+        document.getElementById('image_preview').style.display = 'none';
+    }
+});
 
 // Инициализация счетчика
 document.addEventListener('DOMContentLoaded', function() {

@@ -12,6 +12,7 @@ import uuid
 
 from app import db
 from app.models import User, Service, Portfolio
+from app.utils import upload_image, delete_image, get_image_info
 
 
 def create_admin_blueprint(jwt_secret: str) -> Blueprint:
@@ -76,10 +77,29 @@ def create_admin_blueprint(jwt_secret: str) -> Blueprint:
         """Создание новой услуги."""
         if request.method == 'POST':
             try:
+                # Обработка загрузки изображения
+                image_url = None
+                upload_error = None
+                
+                if 'image_file' in request.files and request.files['image_file'].filename:
+                    # Загрузка нового изображения
+                    file = request.files['image_file']
+                    success, result, thumb_path = upload_image(file, 'services')
+                    if success:
+                        image_url = result
+                        logger.info(f"Изображение загружено для услуги: {image_url}")
+                    else:
+                        upload_error = result
+                        logger.error(f"Ошибка загрузки изображения: {upload_error}")
+                elif request.form.get('image_url'):
+                    # Использование URL изображения
+                    image_url = request.form.get('image_url')
+                
                 service = Service(
                     title=request.form['title'],
                     description=request.form['description'],
                     icon=request.form.get('icon', 'fas fa-cog'),
+                    image_url=image_url,
                     color=request.form.get('color', '#8B5CF6'),
                     price_from=float(request.form['price_from']) if request.form.get('price_from') else None,
                     duration=request.form.get('duration'),
@@ -96,6 +116,14 @@ def create_admin_blueprint(jwt_secret: str) -> Blueprint:
                 
                 if features:
                     service.set_features(features)
+                
+                # Проверка ошибок загрузки изображения
+                if upload_error:
+                    user = User.get_by_jwt_secret(jwt_secret)
+                    return render_template('admin/service_form.html', 
+                                         user=user,
+                                         error=f"Ошибка загрузки изображения: {upload_error}",
+                                         jwt_secret=jwt_secret)
                 
                 db.session.add(service)
                 db.session.commit()
@@ -128,6 +156,29 @@ def create_admin_blueprint(jwt_secret: str) -> Blueprint:
         
         if request.method == 'POST':
             try:
+                # Обработка загрузки изображения
+                upload_error = None
+                old_image_url = service.image_url
+                
+                if 'image_file' in request.files and request.files['image_file'].filename:
+                    # Загрузка нового изображения
+                    file = request.files['image_file']
+                    success, result, thumb_path = upload_image(file, 'services')
+                    if success:
+                        # Удаление старого изображения если оно было загружено через систему
+                        if old_image_url and old_image_url.startswith('/static/uploads/'):
+                            delete_image(old_image_url)
+                        service.image_url = result
+                        logger.info(f"Изображение обновлено для услуги: {service.image_url}")
+                    else:
+                        upload_error = result
+                        logger.error(f"Ошибка загрузки изображения: {upload_error}")
+                elif request.form.get('image_url') != old_image_url:
+                    # Обновление URL изображения
+                    if old_image_url and old_image_url.startswith('/static/uploads/'):
+                        delete_image(old_image_url)
+                    service.image_url = request.form.get('image_url')
+                
                 service.title = request.form['title']
                 service.description = request.form['description']
                 service.icon = request.form.get('icon', 'fas fa-cog')
@@ -145,6 +196,15 @@ def create_admin_blueprint(jwt_secret: str) -> Blueprint:
                         features.append(feature.strip())
                 
                 service.set_features(features)
+                
+                # Проверка ошибок загрузки изображения
+                if upload_error:
+                    user = User.get_by_jwt_secret(jwt_secret)
+                    return render_template('admin/service_form.html', 
+                                         user=user,
+                                         service=service,
+                                         error=f"Ошибка загрузки изображения: {upload_error}",
+                                         jwt_secret=jwt_secret)
                 
                 db.session.commit()
                 
@@ -208,13 +268,31 @@ def create_admin_blueprint(jwt_secret: str) -> Blueprint:
                 if request.form.get('completion_date'):
                     completion_date = datetime.strptime(request.form['completion_date'], '%Y-%m-%d')
                 
+                # Обработка загрузки изображения
+                image_url = None
+                upload_error = None
+                
+                if 'image_file' in request.files and request.files['image_file'].filename:
+                    # Загрузка нового изображения
+                    file = request.files['image_file']
+                    success, result, thumb_path = upload_image(file, 'portfolio')
+                    if success:
+                        image_url = result
+                        logger.info(f"Изображение загружено для проекта: {image_url}")
+                    else:
+                        upload_error = result
+                        logger.error(f"Ошибка загрузки изображения: {upload_error}")
+                elif request.form.get('image_url'):
+                    # Использование URL изображения
+                    image_url = request.form.get('image_url')
+                
                 project = Portfolio(
                     title=request.form['title'],
                     description=request.form['description'],
                     client=request.form['client'],
                     location=request.form.get('location'),
                     category=request.form['category'],
-                    image_url=request.form.get('image_url'),
+                    image_url=image_url,
                     project_url=request.form.get('project_url'),
                     price=float(request.form['price']) if request.form.get('price') else None,
                     completion_date=completion_date,
@@ -233,6 +311,16 @@ def create_admin_blueprint(jwt_secret: str) -> Blueprint:
                 
                 if technologies:
                     project.set_technologies(technologies)
+                
+                # Проверка ошибок загрузки изображения
+                if upload_error:
+                    user = User.get_by_jwt_secret(jwt_secret)
+                    return render_template('admin/portfolio_form.html', 
+                                         user=user,
+                                         error=f"Ошибка загрузки изображения: {upload_error}",
+                                         categories=Portfolio.Category.__dict__,
+                                         statuses=Portfolio.Status.__dict__,
+                                         jwt_secret=jwt_secret)
                 
                 db.session.add(project)
                 db.session.commit()
@@ -275,12 +363,34 @@ def create_admin_blueprint(jwt_secret: str) -> Blueprint:
                 if request.form.get('completion_date'):
                     completion_date = datetime.strptime(request.form['completion_date'], '%Y-%m-%d')
                 
+                # Обработка загрузки изображения
+                upload_error = None
+                old_image_url = project.image_url
+                
+                if 'image_file' in request.files and request.files['image_file'].filename:
+                    # Загрузка нового изображения
+                    file = request.files['image_file']
+                    success, result, thumb_path = upload_image(file, 'portfolio')
+                    if success:
+                        # Удаление старого изображения если оно было загружено через систему
+                        if old_image_url and old_image_url.startswith('/static/uploads/'):
+                            delete_image(old_image_url)
+                        project.image_url = result
+                        logger.info(f"Изображение обновлено для проекта: {project.image_url}")
+                    else:
+                        upload_error = result
+                        logger.error(f"Ошибка загрузки изображения: {upload_error}")
+                elif request.form.get('image_url') != old_image_url:
+                    # Обновление URL изображения
+                    if old_image_url and old_image_url.startswith('/static/uploads/'):
+                        delete_image(old_image_url)
+                    project.image_url = request.form.get('image_url')
+                
                 project.title = request.form['title']
                 project.description = request.form['description']
                 project.client = request.form['client']
                 project.location = request.form.get('location')
                 project.category = request.form['category']
-                project.image_url = request.form.get('image_url')
                 project.project_url = request.form.get('project_url')
                 project.price = float(request.form['price']) if request.form.get('price') else None
                 project.completion_date = completion_date
@@ -297,6 +407,17 @@ def create_admin_blueprint(jwt_secret: str) -> Blueprint:
                         technologies.append(tech.strip())
                 
                 project.set_technologies(technologies)
+                
+                # Проверка ошибок загрузки изображения
+                if upload_error:
+                    user = User.get_by_jwt_secret(jwt_secret)
+                    return render_template('admin/portfolio_form.html', 
+                                         user=user,
+                                         project=project,
+                                         error=f"Ошибка загрузки изображения: {upload_error}",
+                                         categories=Portfolio.Category.__dict__,
+                                         statuses=Portfolio.Status.__dict__,
+                                         jwt_secret=jwt_secret)
                 
                 db.session.commit()
                 

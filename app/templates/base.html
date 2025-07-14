@@ -27,10 +27,8 @@
             <div class="nav-logo">
                 <a href="{{ url_for('main.homepage') }}">
                     <div class="logo">
-                        <div class="logo-icon">
-                            <i class="fas fa-chart-line"></i>
-                        </div>
-                        <span class="logo-text">LendingAnalyzer</span>
+                        <img src="{{ url_for('static', filename='img/logo.png') }}" alt="" class="logo_img">
+                        <span class="logo-text">Analizator</span>
                     </div>
                 </a>
             </div>
@@ -42,7 +40,7 @@
                         <a href="{{ url_for('main.homepage') }}" class="nav-link">Главная</a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ url_for('main.about') }}" class="nav-link">О нас</a>
+                        <a href="{{ url_for('main.portfolio') }}" class="nav-link">Продукты</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a href="{{ url_for('main.services') }}" class="nav-link">
@@ -56,27 +54,14 @@
                         </div>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ url_for('main.portfolio') }}" class="nav-link">Портфолио</a>
+                        <a href="{{ url_for('main.about') }}" class="nav-link">О нас</a>
                     </li>
+
+
                     <li class="nav-item">
                         <a href="{{ url_for('main.contact') }}" class="nav-link">Контакты</a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a href="#" class="nav-link">
-                            Тарифы
-                            <i class="fas fa-chevron-down dropdown-icon"></i>
-                        </a>
-                        <div class="dropdown-menu">
-                            <a href="{{ url_for('main.pricing') }}" class="dropdown-link">Тарифные планы</a>
-                            <a href="{{ url_for('main.pricing') }}#enterprise" class="dropdown-link">Корпоративный</a>
-                        </div>
-                    </li>
                 </ul>
-            </div>
-            
-            <!-- CTA Button -->
-            <div class="nav-cta">
-                <a href="{{ url_for('main.contact') }}" class="btn btn-primary">Начать работу</a>
             </div>
             
             <!-- Mobile Menu Toggle -->
@@ -106,7 +91,7 @@
                                 <div class="logo-icon">
                                     <i class="fas fa-chart-line"></i>
                                 </div>
-                                <span class="logo-text">LendingAnalyzer</span>
+                                <span class="logo-text">Analizator</span>
                             </div>
                         </div>
                         <p class="footer-description">
@@ -144,7 +129,7 @@
                             <li><a href="#">FAQ</a></li>
                             <li><a href="#">Поддержка билетов</a></li>
                             <li><a href="#">Поддержка продаж</a></li>
-                            <li><a href="{{ url_for('main.contact') }}">Связаться с нами</a></li>
+                            <li><a href="https://t.me/Yakushev_Mikhail">Связаться с нами</a></li>
                         </ul>
                     </div>
                     
@@ -166,7 +151,7 @@
             <div class="footer-bottom">
                 <div class="footer-bottom-content">
                     <p class="copyright">
-                        &copy; 2024 LendingAnalyzer. Все права защищены. Powered by Flask.
+                        &copy; 2024 Analizator. Все права защищены. Powered by Flask.
                     </p>
                     <div class="footer-bottom-links">
                         <a href="#">Условия использования</a>

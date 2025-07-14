@@ -4,4 +4,5 @@ Flask-Migrate==4.0.5
 Flask-JWT-Extended==4.5.3
 python-dotenv==1.0.0
 loguru==0.7.2
-Werkzeug==2.3.7 
+Werkzeug==2.3.7
+Pillow==11.1.0 

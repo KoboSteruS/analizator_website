@@ -27,7 +27,7 @@
         </div>
         {% endif %}
 
-        <form method="POST" class="service-form">
+        <form method="POST" enctype="multipart/form-data" class="service-form">
             <div class="form-grid">
                 <div class="form-section">
                     <h3>Основная информация</h3>
@@ -52,19 +52,58 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="icon" class="form-label">Иконка (Font Awesome)</label>
-                        <div class="icon-input-group">
-                            <input type="text" 
-                                   id="icon" 
-                                   name="icon" 
-                                   class="form-control" 
-                                   value="{{ service.icon if service else 'fas fa-cog' }}" 
-                                   placeholder="fas fa-cog">
-                            <div class="icon-preview">
-                                <i class="{{ service.icon if service else 'fas fa-cog' }}" id="icon-preview"></i>
-                            </div>
+                        <label class="form-label">Иконка или изображение услуги</label>
+                        
+                        <!-- Текущее изображение -->
+                        {% if service and service.image_url %}
+                        <div class="current-image-preview">
+                            <img src="{{ service.image_url }}" alt="{{ service.title }}" class="current-image">
+                            <p class="current-image-info">Текущее изображение</p>
                         </div>
-                        <small class="form-help">Используйте классы Font Awesome, например: fas fa-cog, fas fa-code, fas fa-paint-brush</small>
+                        {% endif %}
+                        
+                        <!-- Загрузка нового файла -->
+                        <div class="image-upload-section">
+                            <label for="image_file" class="form-label">Загрузить изображение</label>
+                            <input type="file" 
+                                   id="image_file" 
+                                   name="image_file" 
+                                   class="form-control file-input" 
+                                   accept="image/*"
+                                   onchange="previewServiceImage(this)">
+                            <div class="form-help">
+                                Поддерживаемые форматы: PNG, JPG, JPEG, GIF, WEBP. Максимальный размер: 5MB
+                            </div>
+                            <div id="service_image_preview" class="image-preview"></div>
+                        </div>
+                        
+                        <!-- URL изображения -->
+                        <div class="image-url-section">
+                            <label for="image_url" class="form-label">Или укажите URL изображения</label>
+                            <input type="url" 
+                                   id="image_url" 
+                                   name="image_url" 
+                                   class="form-control" 
+                                   value="{{ service.image_url if service else '' }}" 
+                                   placeholder="https://example.com/image.jpg">
+                        </div>
+                        
+                        <!-- Font Awesome иконка -->
+                        <div class="icon-section">
+                            <label for="icon" class="form-label">Или используйте Font Awesome иконку</label>
+                            <div class="icon-input-group">
+                                <input type="text" 
+                                       id="icon" 
+                                       name="icon" 
+                                       class="form-control" 
+                                       value="{{ service.icon if service else 'fas fa-cog' }}" 
+                                       placeholder="fas fa-cog">
+                                <div class="icon-preview">
+                                    <i class="{{ service.icon if service else 'fas fa-cog' }}" id="icon-preview"></i>
+                                </div>
+                            </div>
+                            <small class="form-help">Используйте классы Font Awesome, например: fas fa-cog, fas fa-code, fas fa-paint-brush</small>
+                        </div>
                     </div>
 
                     <div class="form-group">
@@ -357,6 +396,61 @@
     border: 1px solid rgba(239, 68, 68, 0.3);
     color: #ef4444;
 }
+
+/* Стили для загрузки изображений */
+.current-image-preview {
+    margin-bottom: 20px;
+    padding: 15px;
+    background: var(--card-background);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+}
+
+.current-image {
+    max-width: 200px;
+    max-height: 200px;
+    border-radius: 6px;
+    object-fit: cover;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.current-image-info {
+    color: var(--text-muted);
+    font-size: 0.9em;
+    margin: 0;
+}
+
+.image-upload-section, .image-url-section, .icon-section {
+    margin-bottom: 20px;
+    padding: 15px;
+    background: var(--card-background);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+}
+
+.file-input {
+    margin-bottom: 10px;
+}
+
+.image-preview {
+    margin-top: 15px;
+    display: none;
+}
+
+.image-preview img {
+    max-width: 200px;
+    max-height: 200px;
+    border-radius: 6px;
+    object-fit: cover;
+    border: 1px solid var(--border-color);
+}
+
+.image-preview-info {
+    margin-top: 8px;
+    color: var(--text-muted);
+    font-size: 0.9em;
+}
 </style>
 
 <script>
@@ -383,11 +477,7 @@ function removeFeature(button) {
     button.parentElement.remove();
 }
 
-// Обновление превью иконки
-document.getElementById('icon').addEventListener('input', function() {
-    const iconPreview = document.getElementById('icon-preview');
-    iconPreview.className = this.value || 'fas fa-cog';
-});
+
 
 // Синхронизация цвета
 document.getElementById('color').addEventListener('input', function() {
@@ -396,6 +486,73 @@ document.getElementById('color').addEventListener('input', function() {
 
 document.getElementById('color-text').addEventListener('input', function() {
     document.getElementById('color').value = this.value;
+});
+
+// Функция превью изображения для услуг
+function previewServiceImage(input) {
+    const preview = document.getElementById('service_image_preview');
+    const file = input.files[0];
+    
+    if (file) {
+        // Проверка размера файла (5MB)
+        if (file.size > 5 * 1024 * 1024) {
+            alert('Размер файла не должен превышать 5MB');
+            input.value = '';
+            preview.style.display = 'none';
+            return;
+        }
+        
+        // Проверка типа файла
+        if (!file.type.startsWith('image/')) {
+            alert('Выберите файл изображения');
+            input.value = '';
+            preview.style.display = 'none';
+            return;
+        }
+        
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            preview.innerHTML = `
+                <img src="${e.target.result}" alt="Превью">
+                <div class="image-preview-info">
+                    <strong>Файл:</strong> ${file.name}<br>
+                    <strong>Размер:</strong> ${(file.size / 1024 / 1024).toFixed(2)} MB<br>
+                    <strong>Тип:</strong> ${file.type}
+                </div>
+            `;
+            preview.style.display = 'block';
+        };
+        reader.readAsDataURL(file);
+        
+        // Очищаем URL поле и иконку при выборе файла
+        document.getElementById('image_url').value = '';
+        document.getElementById('icon').value = '';
+    } else {
+        preview.style.display = 'none';
+    }
+}
+
+// Очистка превью при изменении URL изображения
+document.getElementById('image_url').addEventListener('input', function() {
+    if (this.value) {
+        // Очищаем файл и иконку при вводе URL
+        document.getElementById('image_file').value = '';
+        document.getElementById('service_image_preview').style.display = 'none';
+        document.getElementById('icon').value = '';
+    }
+});
+
+// Очистка превью при изменении иконки
+document.getElementById('icon').addEventListener('input', function() {
+    if (this.value) {
+        // Очищаем файл и URL при вводе иконки
+        document.getElementById('image_file').value = '';
+        document.getElementById('service_image_preview').style.display = 'none';
+        document.getElementById('image_url').value = '';
+    }
+    // Обновляем превью иконки
+    const iconPreview = document.getElementById('icon-preview');
+    iconPreview.className = this.value || 'fas fa-cog';
 });
 </script>
 {% endblock %} 
