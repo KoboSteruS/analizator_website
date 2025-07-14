@@ -320,13 +320,16 @@ def log_request(response_status: int = None, response_size: int = None, duration
     if duration:
         message += f" ({duration:.3f}s)"
     
+    # Используем bind для передачи дополнительных данных
+    request_logger = get_logger('requests').bind(**log_data)
+    
     # Уровень логирования в зависимости от статуса
     if response_status and response_status >= 500:
-        logger.error(message, **log_data)
+        request_logger.error(message)
     elif response_status and response_status >= 400:
-        logger.warning(message, **log_data)
+        request_logger.warning(message)
     else:
-        logger.info(message, **log_data)
+        request_logger.info(message)
 
 
 def log_security_event(event_type: str, details: Dict[str, Any] = None, user_id: str = None):
@@ -360,7 +363,8 @@ def log_security_event(event_type: str, details: Dict[str, Any] = None, user_id:
     if context.get("remote_addr"):
         message += f" from {context['remote_addr']}"
     
-    logger.warning(message, **log_data)
+    security_logger = get_logger('security').bind(**log_data)
+    security_logger.warning(message)
 
 
 def log_admin_action(action: str, resource: str, resource_id: str = None, user_id: str = None, details: Dict[str, Any] = None):
@@ -368,8 +372,8 @@ def log_admin_action(action: str, resource: str, resource_id: str = None, user_i
     Логирование действий в админке.
     
     Args:
-        action: Действие (CREATE, UPDATE, DELETE, VIEW)
-        resource: Ресурс (service, portfolio, user)
+        action: Действие (CREATE, UPDATE, DELETE, etc.)
+        resource: Ресурс (Service, Portfolio, etc.)
         resource_id: ID ресурса
         user_id: ID пользователя
         details: Дополнительные детали
@@ -377,7 +381,7 @@ def log_admin_action(action: str, resource: str, resource_id: str = None, user_i
     context = get_request_context()
     
     log_data = {
-        "type": "ADMIN",
+        "type": "ADMIN_ACTION",
         "action": action,
         "resource": resource,
         "timestamp": datetime.utcnow().isoformat(),
@@ -397,7 +401,8 @@ def log_admin_action(action: str, resource: str, resource_id: str = None, user_i
     if user_id:
         message += f" by user:{user_id}"
     
-    logger.info(message, **log_data)
+    admin_logger = get_logger('admin').bind(**log_data)
+    admin_logger.info(message)
 
 
 def log_file_operation(operation: str, file_path: str, file_size: int = None, user_id: str = None, details: Dict[str, Any] = None):
@@ -405,7 +410,7 @@ def log_file_operation(operation: str, file_path: str, file_size: int = None, us
     Логирование файловых операций.
     
     Args:
-        operation: Операция (UPLOAD, DELETE, OPTIMIZE, etc.)
+        operation: Операция (UPLOAD, DELETE, RESIZE, etc.)
         file_path: Путь к файлу
         file_size: Размер файла в байтах
         user_id: ID пользователя
@@ -414,7 +419,7 @@ def log_file_operation(operation: str, file_path: str, file_size: int = None, us
     context = get_request_context()
     
     log_data = {
-        "type": "FILE",
+        "type": "FILE_OPERATION",
         "operation": operation,
         "file_path": file_path,
         "timestamp": datetime.utcnow().isoformat(),
@@ -423,19 +428,19 @@ def log_file_operation(operation: str, file_path: str, file_size: int = None, us
     
     if file_size:
         log_data["file_size"] = file_size
-        log_data["file_size_mb"] = round(file_size / (1024 * 1024), 2)
     if user_id:
         log_data["user_id"] = user_id
     if details:
         log_data.update(details)
     
-    message = f"FILE {operation} {os.path.basename(file_path)}"
+    message = f"FILE {operation} {file_path}"
     if file_size:
-        message += f" ({log_data['file_size_mb']}MB)"
+        message += f" ({file_size} bytes)"
     if user_id:
         message += f" by user:{user_id}"
     
-    logger.info(message, **log_data)
+    file_logger = get_logger('files').bind(**log_data)
+    file_logger.info(message)
 
 
 def log_performance(operation: str, duration: float, details: Dict[str, Any] = None):
@@ -459,10 +464,12 @@ def log_performance(operation: str, duration: float, details: Dict[str, Any] = N
     
     message = f"PERFORMANCE {operation} took {duration:.3f}s"
     
+    perf_logger = get_logger('performance').bind(**log_data)
+    
     # Уровень логирования в зависимости от времени выполнения
     if duration > 5.0:
-        logger.error(message, **log_data)
+        perf_logger.error(message)
     elif duration > 2.0:
-        logger.warning(message, **log_data)
+        perf_logger.warning(message)
     else:
-        logger.info(message, **log_data) 
+        perf_logger.info(message) 

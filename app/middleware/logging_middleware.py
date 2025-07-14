@@ -6,9 +6,10 @@ Middleware для логирования HTTP запросов.
 import time
 import uuid
 from typing import Any
-from flask import Flask, request, g, Response
+from flask import Flask, request, g, Response, current_app
 from loguru import logger
 from app.utils import log_request, log_performance
+from app.utils.logging import get_logger
 
 
 class LoggingMiddleware:
@@ -37,39 +38,42 @@ class LoggingMiddleware:
         app.teardown_appcontext(self._teardown_request)
     
     def _before_request(self) -> None:
-        """Обработка запроса перед выполнением."""
-        # Генерируем уникальный ID запроса
-        g.request_id = str(uuid.uuid4())
+        """
+        Обработка запроса перед выполнением.
+        Устанавливает request_id и логирует информацию о запросе.
+        """
+        # Генерируем уникальный ID для запроса
+        g.request_id = str(uuid.uuid4())[:8]
         g.start_time = time.time()
         
-        # Пропускаем статические файлы
-        if self._is_static_request():
+        # Пропускаем логирование для статических файлов в production
+        if self._is_static_request() and current_app.config.get('ENV') == 'production':
             return
+            
+        logger = get_logger('requests').bind(request_id=g.request_id)
         
-        # Логируем начало запроса
+        # Логируем основную информацию о запросе
         logger.info(
-            f"REQUEST {request.method} {request.path} from {request.environ.get('REMOTE_ADDR')}",
-            request_id=g.request_id,
+            "Incoming request",
             method=request.method,
             path=request.path,
-            remote_addr=request.environ.get('REMOTE_ADDR'),
-            user_agent=request.headers.get('User-Agent', '')[:200],
-            content_type=request.content_type,
-            content_length=request.content_length
+            remote_addr=request.remote_addr,
+            user_agent=request.headers.get('User-Agent', 'Unknown')[:100]
         )
         
-        # Логируем параметры запроса (кроме паролей)
+        # Логируем параметры запроса (кроме чувствительных)
         if request.args:
-            safe_args = {k: v for k, v in request.args.items() 
-                        if not any(sensitive in k.lower() for sensitive in ['password', 'token', 'secret', 'key'])}
+            sensitive_params = ['password', 'token', 'api_key', 'secret']
+            safe_args = {k: '***' if any(s in k.lower() for s in sensitive_params) else v 
+                        for k, v in request.args.items()}
             if safe_args:
-                logger.debug(f"Query parameters: {safe_args}", request_id=g.request_id)
+                logger.debug("Query parameters", params=safe_args)
         
         # Логируем заголовки (кроме чувствительных)
         sensitive_headers = ['authorization', 'cookie', 'x-api-key', 'x-auth-token']
         safe_headers = {k: v for k, v in request.headers.items() 
                        if k.lower() not in sensitive_headers}
-        logger.debug(f"Request headers: {safe_headers}", request_id=g.request_id)
+        logger.debug("Request headers", headers=safe_headers)
     
     def _after_request(self, response: Response) -> Response:
         """
@@ -87,9 +91,12 @@ class LoggingMiddleware:
         
         # Вычисляем время выполнения
         duration = time.time() - getattr(g, 'start_time', time.time())
+        request_id = getattr(g, 'request_id', None)
         
         # Получаем размер ответа
         response_size = len(response.get_data()) if hasattr(response, 'get_data') else None
+        
+        logger = get_logger('requests').bind(request_id=request_id)
         
         # Логируем ответ
         log_request(
@@ -99,8 +106,8 @@ class LoggingMiddleware:
         )
         
         # Добавляем заголовок с ID запроса
-        if hasattr(g, 'request_id'):
-            response.headers['X-Request-ID'] = g.request_id
+        if request_id:
+            response.headers['X-Request-ID'] = request_id
         
         # Логируем медленные запросы
         if duration > 1.0:
@@ -108,7 +115,7 @@ class LoggingMiddleware:
                 operation=f"{request.method} {request.path}",
                 duration=duration,
                 details={
-                    'request_id': getattr(g, 'request_id', None),
+                    'request_id': request_id,
                     'status_code': response.status_code,
                     'response_size': response_size
                 }
@@ -116,8 +123,9 @@ class LoggingMiddleware:
         
         # Логируем подробности ответа
         logger.info(
-            f"RESPONSE {response.status_code} for {request.method} {request.path} ({duration:.3f}s)",
-            request_id=getattr(g, 'request_id', None),
+            "Response completed",
+            method=request.method,
+            path=request.path,
             status_code=response.status_code,
             duration=round(duration, 3),
             response_size=response_size,
@@ -133,12 +141,16 @@ class LoggingMiddleware:
         Args:
             error: Ошибка, если произошла
         """
+        request_id = getattr(g, 'request_id', None)
+        
         if error:
+            logger = get_logger('errors').bind(request_id=request_id)
             logger.error(
-                f"Request error: {error}",
-                request_id=getattr(g, 'request_id', None),
+                "Request error occurred",
                 error_type=type(error).__name__,
-                exc_info=True
+                error_message=str(error),
+                method=request.method,
+                path=request.path
             )
     
     def _is_static_request(self) -> bool:
