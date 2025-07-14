@@ -287,6 +287,22 @@ class Portfolio(BaseModel):
         import json
         self.technologies = json.dumps(technologies_list, ensure_ascii=False)
     
+    def get_technologies(self) -> list:
+        """
+        Получение списка технологий.
+        
+        Returns:
+            list: Список технологий
+        """
+        if not self.technologies:
+            return []
+        
+        try:
+            import json
+            return json.loads(self.technologies)
+        except (json.JSONDecodeError, TypeError):
+            return []
+    
     def get_category_color(self) -> str:
         """
         Получение цвета для категории.
