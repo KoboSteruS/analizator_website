@@ -46,6 +46,11 @@ class LoggingMiddleware:
         g.request_id = str(uuid.uuid4())[:8]
         g.start_time = time.time()
         
+        # Сохраняем информацию о запросе для использования в teardown
+        g.request_method = request.method
+        g.request_path = request.path
+        g.request_remote_addr = request.remote_addr
+        
         # Пропускаем логирование для статических файлов в production
         if self._is_static_request() and current_app.config.get('ENV') == 'production':
             return
@@ -112,7 +117,7 @@ class LoggingMiddleware:
         # Логируем медленные запросы
         if duration > 1.0:
             log_performance(
-                operation=f"{request.method} {request.path}",
+                operation=f"{getattr(g, 'request_method', 'UNKNOWN')} {getattr(g, 'request_path', 'UNKNOWN')}",
                 duration=duration,
                 details={
                     'request_id': request_id,
@@ -124,8 +129,8 @@ class LoggingMiddleware:
         # Логируем подробности ответа
         logger.info(
             "Response completed",
-            method=request.method,
-            path=request.path,
+            method=getattr(g, 'request_method', 'UNKNOWN'),
+            path=getattr(g, 'request_path', 'UNKNOWN'),
             status_code=response.status_code,
             duration=round(duration, 3),
             response_size=response_size,
@@ -149,8 +154,9 @@ class LoggingMiddleware:
                 "Request error occurred",
                 error_type=type(error).__name__,
                 error_message=str(error),
-                method=request.method,
-                path=request.path
+                method=getattr(g, 'request_method', 'UNKNOWN'),
+                path=getattr(g, 'request_path', 'UNKNOWN'),
+                remote_addr=getattr(g, 'request_remote_addr', 'UNKNOWN')
             )
     
     def _is_static_request(self) -> bool:
