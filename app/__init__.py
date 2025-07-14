@@ -43,7 +43,7 @@ def create_app(config_name: Optional[str] = None) -> Flask:
     jwt.init_app(app)
     
     # Настройка логирования
-    from app.utils import setup_logging
+    from app.utils.logging import setup_logging
     setup_logging(app)
     
     # Настройка middleware
