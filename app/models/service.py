@@ -44,11 +44,12 @@ class Service(BaseModel):
         comment="CSS класс иконки Font Awesome"
     )
     
-    image_url = Column(
-        String(500),
-        nullable=True,
-        comment="URL изображения услуги (альтернатива иконке)"
-    )
+    # Временно отключено для исправления проблем на продакшн
+    # image_url = Column(
+    #     String(500),
+    #     nullable=True,
+    #     comment="URL изображения услуги (альтернатива иконке)"
+    # )
     
     is_active = Column(
         Boolean,
