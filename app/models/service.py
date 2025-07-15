@@ -200,6 +200,22 @@ class Service(BaseModel):
         import json
         self.features = json.dumps(features_list, ensure_ascii=False)
     
+    def get_features(self) -> list:
+        """
+        Получение списка особенностей.
+        
+        Returns:
+            list: Список особенностей услуги
+        """
+        if not self.features:
+            return []
+        
+        try:
+            import json
+            return json.loads(self.features)
+        except (json.JSONDecodeError, TypeError):
+            return []
+    
     def __repr__(self) -> str:
         """Строковое представление услуги."""
         return f"<Service(title={self.title}, active={self.is_active})>" 
