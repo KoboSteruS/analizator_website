@@ -23,14 +23,12 @@
             <table class="admin-table">
                 <thead>
                     <tr>
-                        <th>Изображение</th>
-                        <th>Название</th>
+                        <th>Проект</th>
                         <th>Клиент</th>
                         <th>Категория</th>
-                        <th>Статус</th>
-                        <th>Цена</th>
-                        <th>Дата</th>
+                        <th>Дата завершения</th>
                         <th>Рекомендуемый</th>
+                        <th>Статус</th>
                         <th>Действия</th>
                     </tr>
                 </thead>
@@ -63,13 +61,6 @@
                             <span class="badge badge-{{ 'success' if project.status == 'COMPLETED' else 'warning' if project.status == 'IN_PROGRESS' else 'secondary' }}">
                                 {{ project.status }}
                             </span>
-                        </td>
-                        <td>
-                            {% if project.price %}
-                            <strong>{{ "${:,.0f}".format(project.price) }}</strong>
-                            {% else %}
-                            <span class="text-muted">Не указано</span>
-                            {% endif %}
                         </td>
                         <td>
                             {% if project.completion_date %}

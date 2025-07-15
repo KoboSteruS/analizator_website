@@ -123,6 +123,10 @@ dmypy.json
 
 # Flask specific
 logs/
+instance/
+
+.db
+
 
 # IDE
 .vscode/

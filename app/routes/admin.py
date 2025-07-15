@@ -69,7 +69,7 @@ def create_admin_blueprint(jwt_secret: str) -> Blueprint:
             'services_count': Service.query.filter_by(is_active=True).count(),
             'portfolio_count': Portfolio.query.filter_by(is_active=True).count(),
             'featured_projects': Portfolio.query.filter_by(is_featured=True).count(),
-            'total_projects_value': db.session.query(db.func.sum(Portfolio.price)).filter_by(is_active=True).scalar() or 0
+            'completed_projects': Portfolio.query.filter_by(is_active=True, status=Portfolio.Status.COMPLETED).count()
         }
         
         logger.info(f"Администратор {user.email} зашел в админку")
@@ -115,7 +115,6 @@ def create_admin_blueprint(jwt_secret: str) -> Blueprint:
                     icon=request.form.get('icon', 'fas fa-cog'),
                     image_url=image_url,
                     color=request.form.get('color', '#8B5CF6'),
-                    price_from=float(request.form['price_from']) if request.form.get('price_from') else None,
                     duration=request.form.get('duration'),
                     sort_order=int(request.form.get('sort_order', 0)),
                     is_active=bool(request.form.get('is_active'))
@@ -151,7 +150,6 @@ def create_admin_blueprint(jwt_secret: str) -> Blueprint:
                     user_id=user_id,
                     details={
                         'title': service.title,
-                        'price_from': service.price_from,
                         'has_image': bool(service.image_url)
                     }
                 )
@@ -211,7 +209,6 @@ def create_admin_blueprint(jwt_secret: str) -> Blueprint:
                 service.description = request.form['description']
                 service.icon = request.form.get('icon', 'fas fa-cog')
                 service.color = request.form.get('color', '#8B5CF6')
-                service.price_from = float(request.form['price_from']) if request.form.get('price_from') else None
                 service.duration = request.form.get('duration')
                 service.sort_order = int(request.form.get('sort_order', 0))
                 service.is_active = bool(request.form.get('is_active'))
@@ -245,7 +242,6 @@ def create_admin_blueprint(jwt_secret: str) -> Blueprint:
                     user_id=user_id,
                     details={
                         'title': service.title,
-                        'price_from': service.price_from,
                         'has_image': bool(service.image_url),
                         'image_updated': bool(upload_error is None and 'image_file' in request.files)
                     }
@@ -351,7 +347,6 @@ def create_admin_blueprint(jwt_secret: str) -> Blueprint:
                     category=request.form['category'],
                     image_url=image_url,
                     project_url=request.form.get('project_url'),
-                    price=float(request.form['price']) if request.form.get('price') else None,
                     completion_date=completion_date,
                     sort_order=int(request.form.get('sort_order', 0)),
                     is_featured=bool(request.form.get('is_featured')),
@@ -393,7 +388,6 @@ def create_admin_blueprint(jwt_secret: str) -> Blueprint:
                         'title': project.title,
                         'client': project.client,
                         'category': project.category,
-                        'price': project.price,
                         'is_featured': project.is_featured,
                         'has_image': bool(project.image_url)
                     }
@@ -466,7 +460,6 @@ def create_admin_blueprint(jwt_secret: str) -> Blueprint:
                 project.location = request.form.get('location')
                 project.category = request.form['category']
                 project.project_url = request.form.get('project_url')
-                project.price = float(request.form['price']) if request.form.get('price') else None
                 project.completion_date = completion_date
                 project.sort_order = int(request.form.get('sort_order', 0))
                 project.is_featured = bool(request.form.get('is_featured'))
@@ -506,7 +499,6 @@ def create_admin_blueprint(jwt_secret: str) -> Blueprint:
                         'title': project.title,
                         'client': project.client,
                         'category': project.category,
-                        'price': project.price,
                         'is_featured': project.is_featured,
                         'has_image': bool(project.image_url),
                         'image_updated': bool(upload_error is None and 'image_file' in request.files)

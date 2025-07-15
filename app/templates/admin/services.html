@@ -24,7 +24,6 @@
             <tr>
                 <th>Услуга</th>
                 <th>Описание</th>
-                <th>Цена от</th>
                 <th>Статус</th>
                 <th>Порядок</th>
                 <th>Действия</th>
@@ -50,15 +49,6 @@
                     <div style="max-width: 300px;">
                         {{ service.description[:100] }}{% if service.description|length > 100 %}...{% endif %}
                     </div>
-                </td>
-                <td>
-                    {% if service.price_from %}
-                        <span style="color: var(--primary-color); font-weight: 600;">
-                            ₽{{ "{:,.0f}".format(service.price_from).replace(',', ' ') }}
-                        </span>
-                    {% else %}
-                        <span style="color: var(--text-muted);">—</span>
-                    {% endif %}
                 </td>
                 <td>
                     {% if service.is_active %}
@@ -117,32 +107,24 @@
     
     <div class="stat-card">
         <div class="stat-icon">
-            <i class="fas fa-ruble-sign"></i>
+            <i class="fas fa-clock"></i>
         </div>
         <div class="stat-value">
-            {% set min_price = services|selectattr('price_from')|map(attribute='price_from')|min %}
-            {% if min_price %}
-                ₽{{ "{:,.0f}".format(min_price).replace(',', ' ') }}
-            {% else %}
-                —
-            {% endif %}
+            {% set services_with_duration = services|selectattr('duration')|list %}
+            {{ services_with_duration|length }}
         </div>
-        <div class="stat-label">Минимальная цена</div>
+        <div class="stat-label">С указанной длительностью</div>
     </div>
     
     <div class="stat-card">
         <div class="stat-icon">
-            <i class="fas fa-chart-line"></i>
+            <i class="fas fa-sort-numeric-up"></i>
         </div>
         <div class="stat-value">
-            {% set max_price = services|selectattr('price_from')|map(attribute='price_from')|max %}
-            {% if max_price %}
-                ₽{{ "{:,.0f}".format(max_price).replace(',', ' ') }}
-            {% else %}
-                —
-            {% endif %}
+            {% set max_order = services|map(attribute='sort_order')|max %}
+            {{ max_order if max_order else 0 }}
         </div>
-        <div class="stat-label">Максимальная цена</div>
+        <div class="stat-label">Максимальный порядок</div>
     </div>
 </div>
 

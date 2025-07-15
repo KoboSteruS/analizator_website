@@ -51,10 +51,10 @@
     
     <div class="stat-card">
         <div class="stat-icon">
-            <i class="fas fa-ruble-sign"></i>
+            <i class="fas fa-check-circle"></i>
         </div>
-        <div class="stat-value">{{ "₽{:,.0f}".format(stats.total_projects_value).replace(',', ' ') }}</div>
-        <div class="stat-label">Общая стоимость проектов</div>
+        <div class="stat-value">{{ stats.completed_projects or 0 }}</div>
+        <div class="stat-label">Завершенных проектов</div>
     </div>
 </div>
 

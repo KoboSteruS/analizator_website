@@ -33,32 +33,29 @@
                     <h3>Основная информация</h3>
                     
                     <div class="form-group">
-                        <label for="title" class="form-label required">Название проекта</label>
+                        <label for="title" class="form-label">Название проекта</label>
                         <input type="text" 
                                id="title" 
                                name="title" 
                                class="form-control" 
-                               value="{{ project.title if project else '' }}" 
-                               required>
+                               value="{{ project.title if project else '' }}">
                     </div>
 
                     <div class="form-group">
-                        <label for="description" class="form-label required">Описание</label>
+                        <label for="description" class="form-label">Описание</label>
                         <textarea id="description" 
                                   name="description" 
                                   class="form-control" 
-                                  rows="4" 
-                                  required>{{ project.description if project else '' }}</textarea>
+                                  rows="4">{{ project.description if project else '' }}</textarea>
                     </div>
 
                     <div class="form-group">
-                        <label for="client" class="form-label required">Клиент</label>
+                        <label for="client" class="form-label">Клиент</label>
                         <input type="text" 
                                id="client" 
                                name="client" 
                                class="form-control" 
-                               value="{{ project.client if project else '' }}" 
-                               required>
+                               value="{{ project.client if project else '' }}">
                     </div>
 
                     <div class="form-group">
@@ -72,8 +69,8 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="category" class="form-label required">Категория</label>
-                        <select id="category" name="category" class="form-control" required>
+                        <label for="category" class="form-label">Категория</label>
+                        <select id="category" name="category" class="form-control">
                             <option value="">Выберите категорию</option>
                             {% for key, value in categories.items() %}
                                 {% if not key.startswith('_') %}
@@ -136,17 +133,6 @@
                                class="form-control" 
                                value="{{ project.project_url if project else '' }}" 
                                placeholder="https://example.com">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="price" class="form-label">Стоимость проекта (USD)</label>
-                        <input type="number" 
-                               id="price" 
-                               name="price" 
-                               class="form-control" 
-                               value="{{ project.price if project and project.price else '' }}" 
-                               min="0" 
-                               step="0.01">
                     </div>
 
                     <div class="form-group">

@@ -33,22 +33,20 @@
                     <h3>Основная информация</h3>
                     
                     <div class="form-group">
-                        <label for="title" class="form-label required">Название услуги</label>
+                        <label for="title" class="form-label">Название услуги</label>
                         <input type="text" 
                                id="title" 
                                name="title" 
                                class="form-control" 
-                               value="{{ service.title if service else '' }}" 
-                               required>
+                               value="{{ service.title if service else '' }}">
                     </div>
 
                     <div class="form-group">
-                        <label for="description" class="form-label required">Описание</label>
+                        <label for="description" class="form-label">Описание</label>
                         <textarea id="description" 
                                   name="description" 
                                   class="form-control" 
-                                  rows="4" 
-                                  required>{{ service.description if service else '' }}</textarea>
+                                  rows="4">{{ service.description if service else '' }}</textarea>
                     </div>
 
                     <div class="form-group">
@@ -125,19 +123,8 @@
                 </div>
 
                 <div class="form-section">
-                    <h3>Коммерческая информация</h3>
+                    <h3>Дополнительная информация</h3>
                     
-                    <div class="form-group">
-                        <label for="price_from" class="form-label">Цена от (USD)</label>
-                        <input type="number" 
-                               id="price_from" 
-                               name="price_from" 
-                               class="form-control" 
-                               value="{{ service.price_from if service and service.price_from else '' }}" 
-                               min="0" 
-                               step="0.01">
-                    </div>
-
                     <div class="form-group">
                         <label for="duration" class="form-label">Длительность</label>
                         <input type="text" 
