@@ -23,6 +23,9 @@ class Config:
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or 'sqlite:///app.db'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     
+    # Настройки загрузки файлов
+    MAX_CONTENT_LENGTH = 100 * 1024 * 1024  # 100 MB
+    
     # Другие настройки
     JSON_AS_ASCII = False  # Поддержка UTF-8 в JSON ответах
     JSONIFY_PRETTYPRINT_REGULAR = True

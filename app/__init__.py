@@ -37,6 +37,9 @@ def create_app(config_name: Optional[str] = None) -> Flask:
     
     app.config.from_object(config_by_name[config_name])
     
+    # Настройка лимита загрузки файлов (100 МБ)
+    app.config['MAX_CONTENT_LENGTH'] = 100 * 1024 * 1024  # 100 MB
+    
     # Инициализация расширений
     db.init_app(app)
     migrate.init_app(app, db)
@@ -93,4 +96,10 @@ def register_error_handlers(app: Flask) -> None:
     def bad_request(error):
         logger.warning(f"400 ошибка: {error}")
         log_request(response_status=400)
-        return {"error": "Неверный запрос"}, 400 
+        return {"error": "Неверный запрос"}, 400
+    
+    @app.errorhandler(413)
+    def request_entity_too_large(error):
+        logger.warning(f"413 ошибка: Файл слишком большой - {error}")
+        log_request(response_status=413)
+        return {"error": "Файл слишком большой. Максимальный размер: 100 МБ"}, 413 
