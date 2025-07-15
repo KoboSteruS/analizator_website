@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}О нас - Анализатор кредитных заявок{% endblock %}
+{% block title %}О нас - AnalizatorMP{% endblock %}
 
 {% block content %}
 <!-- Hero Section -->
@@ -8,7 +8,7 @@
     <div class="container text-center">
         <h1 class="hero-title animate-fadeInUp">О нас</h1>
         <p class="hero-subtitle animate-fadeInUp" style="animation-delay: 0.2s; max-width: none;">
-            Ваше цифровое путешествие начинается здесь: окунитесь в экспертизу LendingAnalyzer.
+            Ваш надежный партнер в области аналитики и автоматизации маркетплейсов.
         </p>
     </div>
 </section>
@@ -25,25 +25,24 @@
                     <div style="position: absolute; top: 20px; right: 20px;">
                         <div style="background: var(--primary-color); color: white; padding: 0.5rem 1rem; 
                                     border-radius: var(--radius-lg); font-size: 0.75rem; font-weight: 600;">
-                            КТО МЫ
+                            АНАЛИЗ MP
                         </div>
                     </div>
-                    <i class="fas fa-users" style="font-size: 4rem; color: var(--primary-color); margin-bottom: 1rem;"></i>
-                    <p style="color: var(--text-secondary);">Наша команда экспертов</p>
+                    <i class="fas fa-shopping-cart" style="font-size: 4rem; color: var(--primary-color); margin-bottom: 1rem;"></i>
+                    <p style="color: var(--text-secondary);">Маркетплейс аналитика</p>
                 </div>
             </div>
             
             <div class="animate-fadeInRight">
                 <h2 style="margin-bottom: 2rem;">
-                    Ваше цифровое будущее, наша экспертиза: 
-                    <span class="text-gradient">LendingAnalyzer обеспечивает совершенство</span>
+                    Профессиональные решения для селлеров: 
+                    <span class="text-gradient">AnalizatorMP - ваш успех на маркетплейсах</span>
                 </h2>
                 <p style="margin-bottom: 2rem; color: var(--text-secondary);">
-                    Pede molestias quo diam tem vehicula mollit ridiculus tel consectetur
-                    nam ut lorem. Ullam consequuntur qui fuga velit magna amen 
-                    ipsum dolore ut mollit magna stet kiam. Litt vel condimentum ut
-                    ut lacerta at sit ultricorper labore lorem consequat, leo accusantium
-                    qui lorem clita ipsum nulla ut enim erat assumenda ipsum.
+                    Мы специализируемся на отчетности и анализе маркетплейсов для селлеров, 
+                    что помогает им лучше организовывать свою работу. Наши решения включают 
+                    автоматизацию бизнес-процессов, управленческий учет и внедрение современных 
+                    технологий для роста вашего бизнеса.
                 </p>
                 <a href="{{ url_for('main.contact') }}" class="btn btn-primary">
                     <i class="fas fa-arrow-right"></i>
@@ -57,46 +56,22 @@
 <!-- Join Companies Section -->
 <section class="section" style="background: var(--dark-bg-secondary);">
     <div class="container text-center">
-        <h2 style="margin-bottom: 1rem;">Присоединитесь к более чем 300 000+ предприятиям для создания уникальных дизайнов брендов.</h2>
+        <h2 style="margin-bottom: 1rem;">Работаем с ведущими маркетплейсами России</h2>
         
         <!-- Company Logos -->
-        <div style="margin-top: 3rem; display: flex; justify-content: space-around; align-items: center; 
-                    flex-wrap: wrap; gap: 2rem; opacity: 0.6;">
-            <div style="font-size: 1.5rem; font-weight: 700; color: var(--text-secondary);">
-                <i class="fas fa-building" style="margin-right: 0.5rem;"></i>
-                logoipsum
+        <div style="margin-top: 3rem; display: flex; justify-content: center; align-items: center; 
+                    flex-wrap: wrap; gap: 4rem; opacity: 0.8;">
+            <div style="font-size: 2rem; font-weight: 700; color: var(--text-secondary);">
+                <i class="fas fa-chart-line" style="margin-right: 0.5rem; color: var(--primary-color);"></i>
+                Wildberries
             </div>
-            <div style="font-size: 1.5rem; font-weight: 700; color: var(--text-secondary);">
-                <i class="fas fa-chart-bar" style="margin-right: 0.5rem;"></i>
-                logoipsum
+            <div style="font-size: 2rem; font-weight: 700; color: var(--text-secondary);">
+                <i class="fas fa-shopping-bag" style="margin-right: 0.5rem; color: var(--success-color);"></i>
+                OZON
             </div>
-            <div style="font-size: 1.5rem; font-weight: 700; color: var(--text-secondary);">
-                <i class="fas fa-cog" style="margin-right: 0.5rem;"></i>
-                logoipsum
-            </div>
-            <div style="font-size: 1.5rem; font-weight: 700; color: var(--text-secondary);">
-                <i class="fas fa-star" style="margin-right: 0.5rem;"></i>
-                logoipsum
-            </div>
-        </div>
-        
-        <div style="margin-top: 2rem; display: flex; justify-content: space-around; align-items: center; 
-                    flex-wrap: wrap; gap: 2rem; opacity: 0.6;">
-            <div style="font-size: 1.5rem; font-weight: 700; color: var(--text-secondary);">
-                <i class="fas fa-cube" style="margin-right: 0.5rem;"></i>
-                logoipsum
-            </div>
-            <div style="font-size: 1.5rem; font-weight: 700; color: var(--text-secondary);">
-                <i class="fas fa-rocket" style="margin-right: 0.5rem;"></i>
-                logoipsum
-            </div>
-            <div style="font-size: 1.5rem; font-weight: 700; color: var(--text-secondary);">
-                <i class="fas fa-shield-alt" style="margin-right: 0.5rem;"></i>
-                LOGOIPSUM
-            </div>
-            <div style="font-size: 1.5rem; font-weight: 700; color: var(--text-secondary);">
-                <i class="fas fa-lightning-bolt" style="margin-right: 0.5rem;"></i>
-                LOGOIPSUM
+            <div style="font-size: 2rem; font-weight: 700; color: var(--text-secondary);">
+                <i class="fas fa-store" style="margin-right: 0.5rem; color: var(--warning-color);"></i>
+                Яндекс.Маркет
             </div>
         </div>
     </div>
@@ -108,12 +83,12 @@
         <div class="grid grid-2" style="align-items: center; gap: 4rem;">
             <div class="animate-fadeInLeft">
                 <h2 style="margin-bottom: 2rem;">
-                    Умные дизайны, четкие результаты - выберите LendingAnalyzer для цифрового совершенства.
+                    Экспертиза в маркетплейсах - выберите AnalizatorMP для роста продаж.
                 </h2>
                 <p style="margin-bottom: 2rem; color: var(--text-secondary);">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, 
-                    luctus nec ullamcorper mattis. Lorem ipsum dolor sit amet, consectetur 
-                    adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis.
+                    Наша команда разрабатывает продукты и услуги специально для селлеров маркетплейсов. 
+                    Мы понимаем специфику работы на различных площадках и создаем решения, 
+                    которые реально помогают увеличить прибыль и оптимизировать процессы.
                 </p>
                 <a href="{{ url_for('main.services') }}" class="btn btn-primary">
                     <i class="fas fa-arrow-right"></i>
@@ -129,11 +104,11 @@
                                 padding: 2rem; margin-bottom: 1rem; position: relative; z-index: 3;
                                 transform: rotate(-2deg);">
                         <div style="display: flex; align-items: center; gap: 1rem; color: white;">
-                            <i class="fas fa-eye" style="font-size: 1.5rem;"></i>
+                            <i class="fas fa-bullseye" style="font-size: 1.5rem;"></i>
                             <div>
-                                <h4 style="margin: 0; color: white;">Наше видение</h4>
+                                <h4 style="margin: 0; color: white;">Наша миссия</h4>
                                 <p style="margin: 0; opacity: 0.9; font-size: 0.875rem;">
-                                    Осваивайте свой цифровой потенциал с LendingAnalyzer Expertise
+                                    Помочь селлерам достичь максимальной эффективности на маркетплейсах
                                 </p>
                             </div>
                         </div>
@@ -144,11 +119,11 @@
                                 border-radius: var(--radius-xl); padding: 2rem; position: relative; z-index: 2;
                                 transform: rotate(2deg); margin-top: -1rem;">
                         <div style="display: flex; align-items: center; gap: 1rem;">
-                            <i class="fas fa-bullseye" style="font-size: 1.5rem; color: var(--secondary-color);"></i>
+                            <i class="fas fa-eye" style="font-size: 1.5rem; color: var(--secondary-color);"></i>
                             <div>
-                                <h4 style="margin: 0; color: var(--text-primary);">Наша миссия</h4>
+                                <h4 style="margin: 0; color: var(--text-primary);">Наше видение</h4>
                                 <p style="margin: 0; color: var(--text-secondary); font-size: 0.875rem;">
-                                    Раскройте свой потенциал в цифровом будущем с экспертными решениями
+                                    Стать ведущей платформой для аналитики и автоматизации маркетплейсов
                                 </p>
                             </div>
                         </div>
@@ -164,126 +139,20 @@
     <div class="container">
         <div class="grid grid-4 text-center">
             <div class="animate-fadeInUp" style="animation-delay: 0.1s;">
-                <div style="font-size: var(--font-size-5xl); font-weight: 700; margin-bottom: 0.5rem;">56K+</div>
-                <p style="font-size: var(--font-size-lg); opacity: 0.9; margin: 0;">Проектов</p>
+                <div style="font-size: var(--font-size-5xl); font-weight: 700; margin-bottom: 0.5rem;">500+</div>
+                <p style="font-size: var(--font-size-lg); opacity: 0.9; margin: 0;">Селлеров</p>
             </div>
             <div class="animate-fadeInUp" style="animation-delay: 0.2s;">
-                <div style="font-size: var(--font-size-5xl); font-weight: 700; margin-bottom: 0.5rem;">38K+</div>
-                <p style="font-size: var(--font-size-lg); opacity: 0.9; margin: 0;">Клиентов</p>
+                <div style="font-size: var(--font-size-5xl); font-weight: 700; margin-bottom: 0.5rem;">3</div>
+                <p style="font-size: var(--font-size-lg); opacity: 0.9; margin: 0;">Маркетплейса</p>
             </div>
             <div class="animate-fadeInUp" style="animation-delay: 0.3s;">
-                <div style="font-size: var(--font-size-5xl); font-weight: 700; margin-bottom: 0.5rem;">4.7</div>
-                <p style="font-size: var(--font-size-lg); opacity: 0.9; margin: 0;">Рейтинг</p>
+                <div style="font-size: var(--font-size-5xl); font-weight: 700; margin-bottom: 0.5rem;">98%</div>
+                <p style="font-size: var(--font-size-lg); opacity: 0.9; margin: 0;">Довольных клиентов</p>
             </div>
             <div class="animate-fadeInUp" style="animation-delay: 0.4s;">
-                <div style="font-size: var(--font-size-5xl); font-weight: 700; margin-bottom: 0.5rem;">35+</div>
-                <p style="font-size: var(--font-size-lg); opacity: 0.9; margin: 0;">Наград</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Team Section -->
-<section class="section">
-    <div class="container">
-        <div class="text-center" style="margin-bottom: 4rem;">
-            <h2 style="margin-bottom: 1rem;">Знакомьтесь с нашей командой</h2>
-            <p style="color: var(--text-secondary);">
-                Вместе мы представляем отдельных, талантливых инженеров вы до тех пор.
-            </p>
-        </div>
-        
-        <div class="grid grid-4">
-            <!-- Team Member 1 -->
-            <div class="card animate-fadeInUp text-center" style="animation-delay: 0.1s;">
-                <div style="width: 100px; height: 100px; background: var(--gradient-primary); 
-                            border-radius: 50%; display: flex; align-items: center; 
-                            justify-content: center; margin: 0 auto 1.5rem; color: white; 
-                            font-size: 2rem; font-weight: bold;">
-                    А
-                </div>
-                <h4 style="margin-bottom: 0.5rem;">Анна Петрова</h4>
-                <p style="color: var(--text-muted); margin-bottom: 1rem; font-size: var(--font-size-sm);">Основатель</p>
-                <div style="display: flex; justify-content: center; gap: 1rem;">
-                    <a href="#" class="social-link" style="width: 35px; height: 35px;">
-                        <i class="fab fa-facebook-f"></i>
-                    </a>
-                    <a href="#" class="social-link" style="width: 35px; height: 35px;">
-                        <i class="fab fa-twitter"></i>
-                    </a>
-                    <a href="#" class="social-link" style="width: 35px; height: 35px;">
-                        <i class="fab fa-linkedin-in"></i>
-                    </a>
-                </div>
-            </div>
-            
-            <!-- Team Member 2 -->
-            <div class="card animate-fadeInUp text-center" style="animation-delay: 0.2s;">
-                <div style="width: 100px; height: 100px; background: var(--gradient-primary); 
-                            border-radius: 50%; display: flex; align-items: center; 
-                            justify-content: center; margin: 0 auto 1.5rem; color: white; 
-                            font-size: 2rem; font-weight: bold;">
-                    М
-                </div>
-                <h4 style="margin-bottom: 0.5rem;">Михаил Сидоров</h4>
-                <p style="color: var(--text-muted); margin-bottom: 1rem; font-size: var(--font-size-sm);">СТО</p>
-                <div style="display: flex; justify-content: center; gap: 1rem;">
-                    <a href="#" class="social-link" style="width: 35px; height: 35px;">
-                        <i class="fab fa-facebook-f"></i>
-                    </a>
-                    <a href="#" class="social-link" style="width: 35px; height: 35px;">
-                        <i class="fab fa-twitter"></i>
-                    </a>
-                    <a href="#" class="social-link" style="width: 35px; height: 35px;">
-                        <i class="fab fa-linkedin-in"></i>
-                    </a>
-                </div>
-            </div>
-            
-            <!-- Team Member 3 -->
-            <div class="card animate-fadeInUp text-center" style="animation-delay: 0.3s;">
-                <div style="width: 100px; height: 100px; background: var(--gradient-primary); 
-                            border-radius: 50%; display: flex; align-items: center; 
-                            justify-content: center; margin: 0 auto 1.5rem; color: white; 
-                            font-size: 2rem; font-weight: bold;">
-                    Е
-                </div>
-                <h4 style="margin-bottom: 0.5rem;">Елена Волкова</h4>
-                <p style="color: var(--text-muted); margin-bottom: 1rem; font-size: var(--font-size-sm);">Ведущий дизайнер</p>
-                <div style="display: flex; justify-content: center; gap: 1rem;">
-                    <a href="#" class="social-link" style="width: 35px; height: 35px;">
-                        <i class="fab fa-facebook-f"></i>
-                    </a>
-                    <a href="#" class="social-link" style="width: 35px; height: 35px;">
-                        <i class="fab fa-twitter"></i>
-                    </a>
-                    <a href="#" class="social-link" style="width: 35px; height: 35px;">
-                        <i class="fab fa-linkedin-in"></i>
-                    </a>
-                </div>
-            </div>
-            
-            <!-- Team Member 4 -->
-            <div class="card animate-fadeInUp text-center" style="animation-delay: 0.4s;">
-                <div style="width: 100px; height: 100px; background: var(--gradient-primary); 
-                            border-radius: 50%; display: flex; align-items: center; 
-                            justify-content: center; margin: 0 auto 1.5rem; color: white; 
-                            font-size: 2rem; font-weight: bold;">
-                    Д
-                </div>
-                <h4 style="margin-bottom: 0.5rem;">Дмитрий Иванов</h4>
-                <p style="color: var(--text-muted); margin-bottom: 1rem; font-size: var(--font-size-sm);">Менеджер проектов</p>
-                <div style="display: flex; justify-content: center; gap: 1rem;">
-                    <a href="#" class="social-link" style="width: 35px; height: 35px;">
-                        <i class="fab fa-facebook-f"></i>
-                    </a>
-                    <a href="#" class="social-link" style="width: 35px; height: 35px;">
-                        <i class="fab fa-twitter"></i>
-                    </a>
-                    <a href="#" class="social-link" style="width: 35px; height: 35px;">
-                        <i class="fab fa-linkedin-in"></i>
-                    </a>
-                </div>
+                <div style="font-size: var(--font-size-5xl); font-weight: 700; margin-bottom: 0.5rem;">24/7</div>
+                <p style="font-size: var(--font-size-lg); opacity: 0.9; margin: 0;">Поддержка</p>
             </div>
         </div>
     </div>

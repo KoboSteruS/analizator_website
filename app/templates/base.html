@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Анализатор кредитных заявок{% endblock %}</title>
+    <title>{% block title %}AnalizatorMP - Отчетность и анализ маркетплейсов{% endblock %}</title>
     
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
@@ -28,7 +28,7 @@
                 <a href="{{ url_for('main.homepage') }}">
                     <div class="logo">
                         <img src="{{ url_for('static', filename='img/logo.png') }}" alt="" class="logo_img">
-                        <span class="logo-text">LendingAnalyzer</span>
+                        <span class="logo-text">AnalizatorMP</span>
                     </div>
                 </a>
             </div>
@@ -48,9 +48,9 @@
                             <i class="fas fa-chevron-down dropdown-icon"></i>
                         </a>
                         <div class="dropdown-menu">
-                            <a href="{{ url_for('main.services') }}#analysis" class="dropdown-link">Анализ заявок</a>
-                            <a href="{{ url_for('main.services') }}#scoring" class="dropdown-link">Скоринг</a>
-                            <a href="{{ url_for('main.services') }}#reports" class="dropdown-link">Отчеты</a>
+                            <a href="{{ url_for('main.services') }}#bots" class="dropdown-link">Разработка ботов</a>
+                            <a href="{{ url_for('main.services') }}#landing" class="dropdown-link">Создание лендинга</a>
+                            <a href="{{ url_for('main.services') }}#ai" class="dropdown-link">Внедрение ИИ</a>
                         </div>
                     </li>
                     <li class="nav-item">
@@ -91,13 +91,13 @@
                                 <div class="logo-icon">
                                     <i class="fas fa-chart-line"></i>
                                 </div>
-                                <span class="logo-text">LendingAnalyzer</span>
+                                <span class="logo-text">AnalizatorMP</span>
                             </div>
                         </div>
                         <p class="footer-description">
-                            Расширяющая ваше присутствие в области цифрового совершенства. Повышайте 
-                            свою онлайн-позицию с помощью наших инновационных решений 
-                            и стратегических цифровых услуг.
+                            Профессиональные решения для отчетности и анализа маркетплейсов. 
+                            Помогаем селлерам лучше организовать свою работу на маркетплейсах 
+                            с помощью современных инструментов аналитики и автоматизации.
                         </p>
                         <div class="social-links">
                             <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
@@ -112,12 +112,12 @@
                     <div class="footer-section">
                         <h3 class="footer-title">Услуги</h3>
                         <ul class="footer-links">
-                            <li><a href="{{ url_for('main.services') }}">Анализ заявок</a></li>
-                            <li><a href="{{ url_for('main.services') }}">Скоринг клиентов</a></li>
-                            <li><a href="{{ url_for('main.services') }}">Цифровой маркетинг</a></li>
-                            <li><a href="{{ url_for('main.services') }}">Графический дизайн</a></li>
-                            <li><a href="{{ url_for('main.services') }}">Брендинг</a></li>
-                            <li><a href="{{ url_for('main.services') }}">SEO оптимизация</a></li>
+                            <li><a href="{{ url_for('main.services') }}">Разработка ботов</a></li>
+                            <li><a href="{{ url_for('main.services') }}">Создание лендинга</a></li>
+                            <li><a href="{{ url_for('main.services') }}">Внедрение ИИ в компанию</a></li>
+                            <li><a href="{{ url_for('main.services') }}">Внедрение системы учета</a></li>
+                            <li><a href="{{ url_for('main.services') }}">Аудит бизнес процессов</a></li>
+                            <li><a href="{{ url_for('main.services') }}">Автоматизация процессов</a></li>
                         </ul>
                     </div>
                     
@@ -151,7 +151,7 @@
             <div class="footer-bottom">
                 <div class="footer-bottom-content">
                     <p class="copyright">
-                        &copy; 2024 LendingAnalyzer. Все права защищены. Powered by Flask.
+                        &copy; 2024 AnalizatorMP. Все права защищены. Powered by Flask.
                     </p>
                     <div class="footer-bottom-links">
                         <a href="#">Условия использования</a>

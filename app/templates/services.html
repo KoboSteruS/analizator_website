@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Услуги - Анализатор кредитных заявок{% endblock %}
+{% block title %}Услуги - AnalizatorMP{% endblock %}
 
 {% block content %}
 <!-- Hero Section -->
@@ -8,8 +8,8 @@
     <div class="container text-center">
         <h1 class="hero-title animate-fadeInUp">Услуги</h1>
         <p class="hero-subtitle animate-fadeInUp" style="animation-delay: 0.2s; max-width: none;">
-            За пикселями, превосходя ожидания: LendingAnalyzer,<br>
-            Где рождаются идеи.
+            Профессиональные решения для автоматизации и развития<br>
+            вашего бизнеса на маркетплейсах
         </p>
     </div>
 </section>
@@ -20,13 +20,13 @@
         <div class="grid grid-2" style="align-items: center; gap: 4rem;">
             <div class="animate-fadeInLeft">
                 <h2 style="margin-bottom: 2rem;">
-                    Первопроходцы цифрового совершенства: 
-                    <span class="text-gradient">Откройте для себя преимущества LendingAnalyzer</span>
+                    Эксперты в области маркетплейсов: 
+                    <span class="text-gradient">Откройте для себя возможности AnalizatorMP</span>
                 </h2>
                 <p style="margin-bottom: 2rem; color: var(--text-secondary);">
-                    Подожди красивого веб-дизайна мечтать требует ул consectetur 
-                    nam ut lorem. Ullam consequuntur qui фича velit magna amen 
-                    ипсум dolor и mollit magna stet kiam sint.
+                    Мы специализируемся на создании решений для селлеров маркетплейсов. 
+                    Наши услуги охватывают весь спектр задач: от разработки ботов до 
+                    внедрения систем искусственного интеллекта.
                 </p>
                 
                 <div style="margin-bottom: 2rem;">
@@ -34,37 +34,29 @@
                         <div>
                             <h5 style="color: var(--text-primary); margin-bottom: 0.5rem;">
                                 <i class="fas fa-check-circle" style="color: var(--primary-color); margin-right: 0.5rem;"></i>
-                                Экспертиза в цифровых решениях
+                                Автоматизация бизнес-процессов
                             </h5>
                             <h5 style="color: var(--text-primary); margin-bottom: 0.5rem;">
                                 <i class="fas fa-check-circle" style="color: var(--primary-color); margin-right: 0.5rem;"></i>
-                                Инновационный подход к дизайну
+                                Разработка пользовательских ботов
                             </h5>
                             <h5 style="color: var(--text-primary); margin-bottom: 0.5rem;">
                                 <i class="fas fa-check-circle" style="color: var(--primary-color); margin-right: 0.5rem;"></i>
-                                Стратегический цифровой маркетинг
-                            </h5>
-                            <h5 style="color: var(--text-primary); margin-bottom: 0.5rem;">
-                                <i class="fas fa-check-circle" style="color: var(--primary-color); margin-right: 0.5rem;"></i>
-                                Решения, основанные на данных
+                                Внедрение ИИ технологий
                             </h5>
                         </div>
                         <div>
                             <h5 style="color: var(--text-primary); margin-bottom: 0.5rem;">
                                 <i class="fas fa-check-circle" style="color: var(--success-color); margin-right: 0.5rem;"></i>
-                                Целостные меры безопасности
+                                Создание продающих лендингов
                             </h5>
                             <h5 style="color: var(--text-primary); margin-bottom: 0.5rem;">
                                 <i class="fas fa-check-circle" style="color: var(--success-color); margin-right: 0.5rem;"></i>
-                                Улучшенная цифровая стратегия
+                                Настройка систем учета
                             </h5>
                             <h5 style="color: var(--text-primary); margin-bottom: 0.5rem;">
                                 <i class="fas fa-check-circle" style="color: var(--success-color); margin-right: 0.5rem;"></i>
-                                Отзывчивый и масштабируемый
-                            </h5>
-                            <h5 style="color: var(--text-primary); margin-bottom: 0.5rem;">
-                                <i class="fas fa-check-circle" style="color: var(--success-color); margin-right: 0.5rem;"></i>
-                                Проверка трека покрытия
+                                Комплексный аудит процессов
                             </h5>
                         </div>
                     </div>
@@ -79,8 +71,8 @@
                     <div style="position: absolute; top: 10px; right: 20px; color: var(--primary-color); font-size: 3rem;">
                         <i class="fas fa-arrow-up-right"></i>
                     </div>
-                    <i class="fas fa-desktop" style="font-size: 4rem; color: var(--primary-color); margin-bottom: 1rem;"></i>
-                    <p style="color: var(--text-secondary);">Интерфейс панели управления</p>
+                    <i class="fas fa-cogs" style="font-size: 4rem; color: var(--primary-color); margin-bottom: 1rem;"></i>
+                    <p style="color: var(--text-secondary);">Автоматизация процессов</p>
                 </div>
             </div>
         </div>
@@ -94,7 +86,7 @@
             <p class="text-gradient" style="font-weight: 600; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 1rem;">
                 Что мы предлагаем
             </p>
-            <h2>Там, где стратегия встречается с цифровым. Ваша<br>история успеха начинается с LendingAnalyzer.</h2>
+            <h2>Комплексные решения для роста вашего бизнеса<br>на маркетплейсах</h2>
         </div>
         
         <div class="grid grid-3">
@@ -104,8 +96,8 @@
                     <div style="width: 80px; height: 80px; background: var(--gradient-primary); 
                                 border-radius: 50%; display: flex; align-items: center; 
                                 justify-content: center; margin: 0 auto 1.5rem; color: white; font-size: 2rem;">
-                        {% if service.icon_class %}
-                        <i class="{{ service.icon_class }}"></i>
+                        {% if service.icon %}
+                        <i class="{{ service.icon }}"></i>
                         {% else %}
                         <i class="fas fa-cog"></i>
                         {% endif %}
@@ -115,11 +107,16 @@
                         {{ service.description }}
                     </p>
                     
-                    {% if service.price %}
+                    {% if service.price_from %}
                     <div style="margin-bottom: 1rem;">
                         <span style="color: var(--primary-color); font-weight: 600; font-size: 1.25rem;">
                             {{ service.price_formatted }}
                         </span>
+                        {% if service.duration %}
+                        <p style="color: var(--text-muted); font-size: 0.875rem; margin-top: 0.25rem;">
+                            Срок: {{ service.duration }}
+                        </p>
+                        {% endif %}
                     </div>
                     {% endif %}
                     
@@ -137,14 +134,14 @@
                     </div>
                     {% endif %}
                     
-                    <a href="#" class="btn btn-primary btn-sm" style="width: 100%;">Узнать больше</a>
+                    <a href="https://t.me/Yakushev_Mikhail" class="btn btn-primary btn-sm" style="width: 100%;">Заказать услугу</a>
                 </div>
             </div>
             {% else %}
             <div class="card" style="grid-column: 1 / -1; text-align: center; padding: 3rem;">
                 <i class="fas fa-cogs" style="font-size: 3rem; color: var(--text-muted); margin-bottom: 1rem;"></i>
-                <h3 style="color: var(--text-muted);">Пока нет услуг</h3>
-                <p style="color: var(--text-muted);">Услуги будут отображаться здесь по мере их добавления.</p>
+                <h3 style="color: var(--text-muted);">Услуги загружаются</h3>
+                <p style="color: var(--text-muted);">Пожалуйста, запустите скрипт обновления данных.</p>
             </div>
             {% endfor %}
         </div>
@@ -159,50 +156,50 @@
                 <!-- Placeholder для изображения -->
                 <div style="background: var(--gradient-card); border-radius: var(--radius-2xl); 
                             padding: 3rem; text-align: center; border: 1px solid var(--border-color);">
-                    <i class="fas fa-users" style="font-size: 4rem; color: var(--primary-color); margin-bottom: 1rem;"></i>
-                    <p style="color: var(--text-secondary);">Опыт работы с клиентами</p>
+                    <i class="fas fa-handshake" style="font-size: 4rem; color: var(--primary-color); margin-bottom: 1rem;"></i>
+                    <p style="color: var(--text-secondary);">Индивидуальный подход</p>
                 </div>
             </div>
             
             <div class="animate-fadeInRight">
                 <h2 style="margin-bottom: 2rem;">
-                    Почувствуйте магию Интерлакеса. Свяжитесь с нами, чтобы обсудить ваш проект.
+                    Доверьтесь профессионалам. Свяжитесь с нами для обсуждения вашего проекта.
                 </h2>
                 <p style="margin-bottom: 2rem; color: var(--text-secondary);">
-                    Lorem Lorem veero magna acusamus aliquid ulllamco consequat
-                    euismod sed ipsium placerat dolores nobis lorem et dolor Ut
-                    aliiquam commodo eiusmod amet lorem дипломат lorem parce un.
+                    Наша команда имеет богатый опыт работы с маркетплейсами и понимает 
+                    все тонкости ведения бизнеса на различных торговых площадках. 
+                    Мы предлагаем решения, которые действительно работают.
                 </p>
                 
                 <!-- Progress bars -->
                 <div style="margin-bottom: 2rem;">
                     <div style="margin-bottom: 1.5rem;">
                         <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
-                            <span style="color: var(--text-primary); font-weight: 500;">Веб и приложения</span>
-                            <span style="color: var(--primary-color); font-weight: 600;">85%</span>
+                            <span style="color: var(--text-primary); font-weight: 500;">Автоматизация процессов</span>
+                            <span style="color: var(--primary-color); font-weight: 600;">95%</span>
                         </div>
                         <div style="width: 100%; height: 8px; background: var(--dark-bg-card); border-radius: 4px; overflow: hidden;">
-                            <div style="width: 85%; height: 100%; background: var(--gradient-primary); border-radius: 4px;"></div>
+                            <div style="width: 95%; height: 100%; background: var(--gradient-primary); border-radius: 4px;"></div>
                         </div>
                     </div>
                     
                     <div style="margin-bottom: 1.5rem;">
                         <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
-                            <span style="color: var(--text-primary); font-weight: 500;">Цифровой маркетинг</span>
-                            <span style="color: var(--primary-color); font-weight: 600;">75%</span>
-                        </div>
-                        <div style="width: 100%; height: 8px; background: var(--dark-bg-card); border-radius: 4px; overflow: hidden;">
-                            <div style="width: 75%; height: 100%; background: var(--gradient-primary); border-radius: 4px;"></div>
-                        </div>
-                    </div>
-                    
-                    <div style="margin-bottom: 1.5rem;">
-                        <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
-                            <span style="color: var(--text-primary); font-weight: 500;">Управление социальными сетями</span>
+                            <span style="color: var(--text-primary); font-weight: 500;">Разработка ботов</span>
                             <span style="color: var(--primary-color); font-weight: 600;">90%</span>
                         </div>
                         <div style="width: 100%; height: 8px; background: var(--dark-bg-card); border-radius: 4px; overflow: hidden;">
                             <div style="width: 90%; height: 100%; background: var(--gradient-primary); border-radius: 4px;"></div>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-bottom: 1.5rem;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                            <span style="color: var(--text-primary); font-weight: 500;">Внедрение ИИ</span>
+                            <span style="color: var(--primary-color); font-weight: 600;">85%</span>
+                        </div>
+                        <div style="width: 100%; height: 8px; background: var(--dark-bg-card); border-radius: 4px; overflow: hidden;">
+                            <div style="width: 85%; height: 100%; background: var(--gradient-primary); border-radius: 4px;"></div>
                         </div>
                     </div>
                 </div>
@@ -214,7 +211,7 @@
 <!-- CTA Section -->
 <section class="section" style="background: var(--dark-bg-secondary);">
     <div class="container text-center">
-        <h2 style="margin-bottom: 1rem;">Открыть поразительные результаты всего за 3 простых шага!</h2>
+        <h2 style="margin-bottom: 1rem;">Получите консультацию и начните автоматизацию уже сегодня!</h2>
         <div class="grid grid-4" style="margin-top: 3rem;">
             <div class="card animate-fadeInUp" style="animation-delay: 0.1s;">
                 <div style="text-align: center;">
@@ -223,9 +220,9 @@
                                 justify-content: center; margin: 0 auto 1.5rem; color: white; font-size: 2rem;">
                         <i class="fas fa-comments"></i>
                     </div>
-                    <h4 style="margin-bottom: 1rem;">Бесплатные консультации</h4>
+                    <h4 style="margin-bottom: 1rem;">Бесплатная консультация</h4>
                     <p style="margin-bottom: 1.5rem; color: var(--text-secondary);">
-                        Ut duis lorem rerum dolorem distinctio qui minus aliquip et consectetur accusantium
+                        Обсудим ваши задачи и подберем оптимальное решение для автоматизации
                     </p>
                     <a href="{{ url_for('main.contact') }}" class="btn btn-outline btn-sm">Связаться</a>
                 </div>
@@ -238,9 +235,9 @@
                                 justify-content: center; margin: 0 auto 1.5rem; color: white; font-size: 2rem;">
                         <i class="fas fa-search"></i>
                     </div>
-                    <h4 style="margin-bottom: 1rem;">Изучить продукт</h4>
+                    <h4 style="margin-bottom: 1rem;">Аудит процессов</h4>
                     <p style="margin-bottom: 1.5rem; color: var(--text-secondary);">
-                        Ut duis lorem rerum dolorem distinctio qui minus aliquip et consectetur accusantium
+                        Проанализируем ваши бизнес-процессы и найдем точки роста
                     </p>
                     <a href="{{ url_for('main.portfolio') }}" class="btn btn-outline btn-sm">Узнать больше</a>
                 </div>
@@ -253,9 +250,9 @@
                                 justify-content: center; margin: 0 auto 1.5rem; color: white; font-size: 2rem;">
                         <i class="fas fa-rocket"></i>
                     </div>
-                    <h4 style="margin-bottom: 1rem;">Каркас и продукция</h4>
+                    <h4 style="margin-bottom: 1rem;">Быстрое внедрение</h4>
                     <p style="margin-bottom: 1.5rem; color: var(--text-secondary);">
-                        Ut duis lorem rerum dolorem distinctio qui minus aliquip et consectetur accusantium
+                        Реализуем решение в кратчайшие сроки с минимальными рисками
                     </p>
                     <a href="{{ url_for('main.portfolio') }}" class="btn btn-outline btn-sm">Портфолио</a>
                 </div>
@@ -266,13 +263,13 @@
                     <div style="width: 80px; height: 80px; background: var(--gradient-primary); 
                                 border-radius: 50%; display: flex; align-items: center; 
                                 justify-content: center; margin: 0 auto 1.5rem; color: white; font-size: 2rem;">
-                        <i class="fas fa-code"></i>
+                        <i class="fas fa-users"></i>
                     </div>
-                    <h4 style="margin-bottom: 1rem;">Прототип приложения</h4>
+                    <h4 style="margin-bottom: 1rem;">Поддержка 24/7</h4>
                     <p style="margin-bottom: 1.5rem; color: var(--text-secondary);">
-                        Ut duis lorem rerum dolorem distinctio qui minus aliquip et consectetur accusantium
+                        Обеспечиваем круглосуточную техническую поддержку наших решений
                     </p>
-                    <a href="#" class="btn btn-outline btn-sm">Попробовать</a>
+                    <a href="https://t.me/Yakushev_Mikhail" class="btn btn-outline btn-sm">Написать в Telegram</a>
                 </div>
             </div>
         </div>

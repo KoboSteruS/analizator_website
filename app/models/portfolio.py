@@ -128,12 +128,11 @@ class Portfolio(BaseModel):
     
     class Category:
         """Категории проектов."""
-        WEB_DEVELOPMENT = "Веб-разработка"
-        MOBILE_APP = "Мобильное приложение"
-        DIGITAL_MARKETING = "Цифровой маркетинг"
-        BRANDING = "Брендинг"
-        DESIGN = "Дизайн"
-        ECOMMERCE = "E-commerce"
+        SYSTEM_ACCOUNTING = "Система учета"
+        AUTOMATION = "Автоматизация"
+        SMS_SERVICE = "SMS-сервис"
+        ANALYTICS = "Аналитика"
+        MARKETPLACE = "Маркетплейс"
         OTHER = "Другое"
     
     @classmethod
@@ -161,76 +160,69 @@ class Portfolio(BaseModel):
         """Создание проектов портфолио по умолчанию."""
         default_projects = [
             {
-                'title': 'Loka Perfume & Co.',
-                'description': 'Интернет-магазин премиальной парфюмерии с современным дизайном и удобной навигацией.',
-                'client': 'Loka Perfume & Co.',
-                'location': 'Москва',
-                'category': cls.Category.WEB_DEVELOPMENT,
+                'title': '1С:Analizator',
+                'description': 'Комплексное решение управленческого учета селлеров маркетплейсов. Автоматизация финансового учета, интеграция с популярными площадками.',
+                'client': 'AnalizatorMP',
+                'location': 'Россия',
+                'category': cls.Category.SYSTEM_ACCOUNTING,
                 'price': 150000,
-                'completion_date': datetime(2024, 1, 18),
+                'completion_date': datetime(2024, 2, 1),
                 'is_featured': True,
-                'sort_order': 6,
-                'status': cls.Status.COMPLETED
-            },
-            {
-                'title': 'Compass Shoes',
-                'description': 'Маркетинговая кампания для продвижения обувного бренда в социальных сетях.',
-                'client': 'Compass Shoes',
-                'location': 'Санкт-Петербург',
-                'category': cls.Category.DIGITAL_MARKETING,
-                'price': 75000,
-                'completion_date': datetime(2024, 1, 15),
-                'is_featured': False,
-                'sort_order': 5,
-                'status': cls.Status.COMPLETED
-            },
-            {
-                'title': 'Digital Dynamics',
-                'description': 'Веб-приложение для управления цифровыми активами компании с аналитикой.',
-                'client': 'Digital Dynamics',
-                'location': 'Москва',
-                'category': cls.Category.WEB_DEVELOPMENT,
-                'price': 250000,
-                'completion_date': datetime(2024, 1, 12),
-                'is_featured': True,
-                'sort_order': 4,
-                'status': cls.Status.COMPLETED
-            },
-            {
-                'title': 'Fresh Bites Catering',
-                'description': 'Разработка фирменного стиля и брендинга для кейтеринговой компании.',
-                'client': 'Fresh Bites Catering',
-                'location': 'Москва',
-                'category': cls.Category.BRANDING,
-                'price': 85000,
-                'completion_date': datetime(2024, 1, 10),
-                'is_featured': False,
                 'sort_order': 3,
-                'status': cls.Status.COMPLETED
+                'status': cls.Status.COMPLETED,
+                'technologies': '["1С:Предприятие", "REST API", "JSON", "SQL Server"]'
             },
             {
-                'title': 'Harmony Spa & Wellness',
-                'description': 'Сайт-визитка для спа-салона с онлайн записью и каталогом услуг.',
-                'client': 'Harmony Spa & Wellness',
-                'location': 'Москва',
-                'category': cls.Category.WEB_DEVELOPMENT,
-                'price': 120000,
-                'completion_date': datetime(2024, 1, 8),
-                'is_featured': False,
+                'title': 'Analizator MP',
+                'description': 'Автоматизация бизнес-процессов для маркетплейсов. Управление товарами, заказами, финансами и аналитикой продаж.',
+                'client': 'AnalizatorMP',
+                'location': 'Россия',
+                'category': cls.Category.AUTOMATION,
+                'price': 300000,
+                'completion_date': datetime(2024, 1, 15),
+                'is_featured': True,
                 'sort_order': 2,
-                'status': cls.Status.COMPLETED
+                'status': cls.Status.COMPLETED,
+                'technologies': '["Python", "FastAPI", "PostgreSQL", "Redis", "Docker"]'
             },
             {
-                'title': 'LuxJewelry Collection',
-                'description': 'E-commerce платформа для продажи эксклюзивных ювелирных изделий.',
-                'client': 'LuxJewelry Collection',
-                'location': 'Москва',
-                'category': cls.Category.ECOMMERCE,
-                'price': 200000,
-                'completion_date': datetime(2024, 1, 5),
+                'title': 'SMS Analizator',
+                'description': 'Решение для доступа персонала к кодам из SMS. Безопасная передача SMS-кодов сотрудникам для работы с маркетплейсами.',
+                'client': 'AnalizatorMP',
+                'location': 'Россия',
+                'category': cls.Category.SMS_SERVICE,
+                'price': 50000,
+                'completion_date': datetime(2024, 1, 10),
                 'is_featured': True,
                 'sort_order': 1,
-                'status': cls.Status.COMPLETED
+                'status': cls.Status.COMPLETED,
+                'technologies': '["Node.js", "Express", "MongoDB", "WebSocket", "Telegram API"]'
+            },
+            {
+                'title': 'Дашборд аналитики Wildberries',
+                'description': 'Система аналитики и отчетности для селлеров Wildberries. Визуализация продаж, прибыли и KPI в реальном времени.',
+                'client': 'ООО "ТорговыйДом"',
+                'location': 'Москва',
+                'category': cls.Category.ANALYTICS,
+                'price': 120000,
+                'completion_date': datetime(2024, 1, 5),
+                'is_featured': False,
+                'sort_order': 4,
+                'status': cls.Status.COMPLETED,
+                'technologies': '["React", "D3.js", "Python", "Pandas", "Wildberries API"]'
+            },
+            {
+                'title': 'Автоматизация OZON',
+                'description': 'Комплексная автоматизация процессов работы с маркетплейсом OZON. Управление товарами, ценами и складскими остатками.',
+                'client': 'ИП Сидоров А.В.',
+                'location': 'Санкт-Петербург',
+                'category': cls.Category.MARKETPLACE,
+                'price': 85000,
+                'completion_date': datetime(2023, 12, 20),
+                'is_featured': False,
+                'sort_order': 5,
+                'status': cls.Status.COMPLETED,
+                'technologies': '["Python", "OZON API", "Celery", "Redis", "PostgreSQL"]'
             }
         ]
         
@@ -311,12 +303,11 @@ class Portfolio(BaseModel):
             str: HEX цвет для категории
         """
         colors = {
-            self.Category.WEB_DEVELOPMENT: "#8B5CF6",
-            self.Category.MOBILE_APP: "#EC4899",
-            self.Category.DIGITAL_MARKETING: "#F472B6",
-            self.Category.BRANDING: "#F59E0B",
-            self.Category.DESIGN: "#10B981",
-            self.Category.ECOMMERCE: "#EF4444",
+            self.Category.SYSTEM_ACCOUNTING: "#8B5CF6",
+            self.Category.AUTOMATION: "#EC4899", 
+            self.Category.SMS_SERVICE: "#F59E0B",
+            self.Category.ANALYTICS: "#10B981",
+            self.Category.MARKETPLACE: "#EF4444",
             self.Category.OTHER: "#6B7280"
         }
         return colors.get(self.category, "#6B7280")
